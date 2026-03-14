@@ -3,6 +3,7 @@ import { z } from "zod"
 
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
+import { type Prisma } from "@prisma/client"
 
 const jobFilterSchema = z.object({
   q: z.string().optional(),
@@ -32,7 +33,7 @@ export async function GET(request: Request): Promise<Response> {
 
   const filters = jobFilterSchema.parse(query)
 
-  const where: Parameters<typeof prisma.job.findMany>[0]["where"] = {
+  const where: Prisma.JobWhereInput = {
     status: "ACTIVE",
   }
 
@@ -136,4 +137,3 @@ export async function POST(request: Request): Promise<Response> {
 
   return NextResponse.json(job, { status: 201 })
 }
-

@@ -10,7 +10,7 @@ import { createJobAction } from "./actions"
 
 const initialState: { error?: string } = {}
 
-export default function NewJobPage(): JSX.Element {
+export default function NewJobPage() {
   const [state, formAction] = useActionState(createJobAction, initialState)
 
   return (
@@ -152,4 +152,3 @@ export default function NewJobPage(): JSX.Element {
     </div>
   )
 }
-

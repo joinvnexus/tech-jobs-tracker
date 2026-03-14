@@ -9,7 +9,7 @@ export interface ModalProps {
   children: React.ReactNode
 }
 
-export function Modal({ open, onClose, title, children }: ModalProps): JSX.Element | null {
+export function Modal({ open, onClose, title, children }: ModalProps) {
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>): void => {
     if (event.target === event.currentTarget) {
       onClose?.()
@@ -49,4 +49,3 @@ export function Modal({ open, onClose, title, children }: ModalProps): JSX.Eleme
     </div>
   )
 }
-

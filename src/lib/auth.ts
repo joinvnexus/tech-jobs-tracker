@@ -1,22 +1,23 @@
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import NextAuth, { type NextAuthConfig } from "next-auth"
+import { type Adapter } from "next-auth/adapters"
 import CredentialsProvider from "next-auth/providers/credentials"
 import bcrypt from "bcryptjs"
-import { PrismaClient } from "@prisma/client"
-import { Pool } from "pg"
-import { PrismaPg } from "@prisma/adapter-pg"
+import { type Role } from "@prisma/client"
 
-const databaseUrl = process.env.DATABASE_URL
-if (!databaseUrl) {
-  throw new Error("DATABASE_URL is not set")
+import { prisma } from "@/lib/prisma"
+
+type UserWithPassword = {
+  id: string
+  email: string
+  name: string | null
+  role: Role
+  isActive: boolean
+  passwordHash: string | null
 }
 
-const pool = new Pool({ connectionString: databaseUrl })
-const adapter = new PrismaPg(pool)
-const prisma = new PrismaClient({ adapter })
-
 export const authConfig: NextAuthConfig = {
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma) as Adapter,
   session: {
     strategy: "jwt",
   },
@@ -35,11 +36,11 @@ export const authConfig: NextAuthConfig = {
           throw new Error('Missing credentials')
         }
 
-        const user = await prisma.user.findUnique({
+        const user = (await prisma.user.findUnique({
           where: {
             email: credentials.email as string,
           },
-        })
+        })) as UserWithPassword | null
 
         if (!user || !user.isActive || !user.passwordHash) {
           throw new Error('Invalid credentials')

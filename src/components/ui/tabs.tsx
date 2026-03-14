@@ -19,7 +19,7 @@ export function Tabs({
   value,
   onChange,
   className,
-}: TabsProps): JSX.Element {
+}: TabsProps) {
   return (
     <div
       className={cn(
@@ -52,4 +52,3 @@ export function Tabs({
     </div>
   )
 }
-

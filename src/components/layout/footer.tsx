@@ -1,4 +1,4 @@
-export function Footer(): JSX.Element {
+export function Footer() {
   return (
     <footer className="border-t bg-background">
       <div className="container flex flex-col items-center justify-between gap-4 py-6 text-sm text-muted-foreground md:flex-row">
@@ -18,4 +18,3 @@ export function Footer(): JSX.Element {
     </footer>
   )
 }
-

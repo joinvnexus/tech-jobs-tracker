@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Skeleton } from "@/components/ui/skeleton"
 import { prisma } from "@/lib/prisma"
+import { type Prisma } from "@prisma/client"
 
 const PAGE_SIZE = 10
 
@@ -22,7 +23,7 @@ async function getJobs(searchParams: JobsPageProps["searchParams"]) {
   const page = Number(searchParams.page ?? "1")
   const skip = (page - 1) * PAGE_SIZE
 
-  const where: Parameters<typeof prisma.job.findMany>[0]["where"] = {
+  const where: Prisma.JobWhereInput = {
     status: "ACTIVE",
   }
 
@@ -65,7 +66,7 @@ async function getJobs(searchParams: JobsPageProps["searchParams"]) {
 
 export default async function JobsPage({
   searchParams,
-}: JobsPageProps): Promise<JSX.Element> {
+}: JobsPageProps) {
   const { jobs, total, page } = await getJobs(searchParams)
   const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE))
 
@@ -215,7 +216,7 @@ export default async function JobsPage({
   )
 }
 
-export function LoadingJobsList(): JSX.Element {
+export function LoadingJobsList() {
   return (
     <div className="container py-10 space-y-4">
       <Skeleton className="h-8 w-64" />
@@ -225,4 +226,3 @@ export function LoadingJobsList(): JSX.Element {
     </div>
   )
 }
-

@@ -3,7 +3,7 @@ import { LogIn, BriefcaseBusiness } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 
-export function Navbar(): JSX.Element {
+export function Navbar() {
   return (
     <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur">
       <div className="container flex h-16 items-center justify-between">
@@ -42,4 +42,3 @@ export function Navbar(): JSX.Element {
     </header>
   )
 }
-

@@ -69,7 +69,7 @@ const mockArticles = [
   },
 ] as const
 
-export default function Home(): JSX.Element {
+export default function Home() {
   return (
     <main className="flex min-h-screen flex-col">
       {/* Hero with search */}
@@ -315,4 +315,3 @@ export default function Home(): JSX.Element {
     </main>
   )
 }
-

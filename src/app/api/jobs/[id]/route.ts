@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server"
+import { NextRequest, NextResponse } from "next/server"
 import { z } from "zod"
 
 import { auth } from "@/lib/auth"
@@ -21,17 +21,18 @@ const jobUpdateSchema = z.object({
 })
 
 interface Params {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 export async function GET(
-  _request: Request,
+  _request: NextRequest,
   { params }: Params,
 ): Promise<Response> {
+  const { id } = await params
   const job = await prisma.job.findUnique({
-    where: { id: params.id },
+    where: { id },
     include: {
       company: true,
     },
@@ -44,15 +45,19 @@ export async function GET(
   return NextResponse.json(job)
 }
 
-export async function PUT(request: Request, { params }: Params): Promise<Response> {
+export async function PUT(
+  request: NextRequest,
+  { params }: Params,
+): Promise<Response> {
   const session = await auth()
+  const { id } = await params
 
   if (!session?.user) {
     return new NextResponse("Unauthorized", { status: 401 })
   }
 
   const existing = await prisma.job.findUnique({
-    where: { id: params.id },
+    where: { id },
     include: {
       company: true,
     },
@@ -74,7 +79,7 @@ export async function PUT(request: Request, { params }: Params): Promise<Respons
   const data = jobUpdateSchema.parse(json)
 
   const job = await prisma.job.update({
-    where: { id: params.id },
+    where: { id },
     data: {
       ...data,
       expiresAt: data.expiresAt ? new Date(data.expiresAt) : null,
@@ -85,17 +90,18 @@ export async function PUT(request: Request, { params }: Params): Promise<Respons
 }
 
 export async function DELETE(
-  _request: Request,
+  _request: NextRequest,
   { params }: Params,
 ): Promise<Response> {
   const session = await auth()
+  const { id } = await params
 
   if (!session?.user) {
     return new NextResponse("Unauthorized", { status: 401 })
   }
 
   const existing = await prisma.job.findUnique({
-    where: { id: params.id },
+    where: { id },
     include: {
       company: true,
     },
@@ -114,9 +120,8 @@ export async function DELETE(
   }
 
   await prisma.job.delete({
-    where: { id: params.id },
+    where: { id },
   })
 
   return new NextResponse(null, { status: 204 })
 }
-

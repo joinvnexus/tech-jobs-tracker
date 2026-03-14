@@ -19,7 +19,7 @@ interface JobDetailsPageProps {
 
 export default async function JobDetailsPage({
   params,
-}: JobDetailsPageProps): Promise<JSX.Element> {
+}: JobDetailsPageProps) {
   const job = await prisma.job.findUnique({
     where: { slug: params.slug },
     include: {
@@ -189,4 +189,3 @@ export default async function JobDetailsPage({
     </div>
   )
 }
-

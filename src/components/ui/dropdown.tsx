@@ -21,7 +21,7 @@ export function Dropdown({
   placeholder = "Select...",
   onChange,
   name,
-}: DropdownProps): JSX.Element {
+}: DropdownProps) {
   const handleChange = (event: React.ChangeEvent<HTMLSelectElement>): void => {
     onChange?.(event.target.value)
   }
@@ -49,4 +49,3 @@ export function Dropdown({
     </select>
   )
 }
-
