@@ -9,7 +9,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
+
+import { SaveJobButton } from "./save-button"
 
 interface JobDetailsPageProps {
   params: {
@@ -20,10 +23,17 @@ interface JobDetailsPageProps {
 export default async function JobDetailsPage({
   params,
 }: JobDetailsPageProps) {
+  const session = await auth()
   const job = await prisma.job.findUnique({
     where: { slug: params.slug },
     include: {
       company: true,
+      savedJobs: session?.user
+        ? {
+            where: { userId: session.user.id },
+            select: { id: true },
+          }
+        : false,
     },
   })
 
@@ -147,6 +157,14 @@ export default async function JobDetailsPage({
               <Button asChild className="w-full">
                 <Link href={`/jobs/${params.slug}/apply`}>Apply now</Link>
               </Button>
+              {session?.user ? (
+                <SaveJobButton
+                  jobId={job.id}
+                  initialSaved={
+                    Array.isArray(job.savedJobs) && job.savedJobs.length > 0
+                  }
+                />
+              ) : null}
             </CardContent>
           </Card>
 
