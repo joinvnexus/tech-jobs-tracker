@@ -17,8 +17,40 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "HireHub – Find your next opportunity",
-  description: "HireHub is a modern job marketplace for job seekers and employers.",
+  title: {
+    default: "HireHub – Find Your Dream Job",
+    template: "%s | HireHub",
+  },
+  description: "HireHub is a modern job marketplace connecting job seekers with top companies in Bangladesh and beyond. Find your next opportunity or hire top talent.",
+  keywords: ["jobs", "career", "employment", "hiring", "job search", "recruitment", "Bangladesh"],
+  authors: [{ name: "HireHub" }],
+  creator: "HireHub",
+  publisher: "HireHub",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "https://hirehub.com"),
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://hirehub.com",
+    title: "HireHub – Find Your Dream Job",
+    description: "HireHub is a modern job marketplace connecting job seekers with top companies in Bangladesh and beyond.",
+    siteName: "HireHub",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "HireHub – Find Your Dream Job",
+    description: "HireHub is a modern job marketplace connecting job seekers with top companies.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 }
 
 export default function RootLayout({
@@ -40,4 +72,3 @@ export default function RootLayout({
     </html>
   )
 }
-

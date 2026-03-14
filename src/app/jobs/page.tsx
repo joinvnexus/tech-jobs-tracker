@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { Metadata } from "next"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -17,6 +18,11 @@ interface JobsPageProps {
     type?: string
     page?: string
   }
+}
+
+export const metadata: Metadata = {
+  title: "Browse Jobs",
+  description: "Search and find your next career opportunity. Browse thousands of jobs from top companies in Bangladesh and abroad.",
 }
 
 async function getJobs(searchParams: JobsPageProps["searchParams"]) {

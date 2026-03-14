@@ -116,7 +116,7 @@ export const authConfig: NextAuthConfig = {
   },
 }
 
-export const { handlers, auth } = NextAuth(authConfig)
+export const { handlers, auth, signOut } = NextAuth(authConfig)
 
 export default authConfig
 

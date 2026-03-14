@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { notFound } from "next/navigation"
+import { Metadata } from "next"
 
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -17,6 +18,33 @@ import { SaveJobButton } from "./save-button"
 interface JobDetailsPageProps {
   params: {
     slug: string
+  }
+}
+
+export async function generateMetadata({
+  params,
+}: JobDetailsPageProps): Promise<Metadata> {
+  const job = await prisma.job.findUnique({
+    where: { slug: params.slug },
+    include: {
+      company: true,
+    },
+  })
+
+  if (!job) {
+    return {
+      title: "Job Not Found",
+    }
+  }
+
+  return {
+    title: job.title,
+    description: `${job.title} at ${job.company.name} in ${job.location}. ${job.description.slice(0, 150)}...`,
+    openGraph: {
+      title: `${job.title} at ${job.company.name}`,
+      description: job.description.slice(0, 160),
+      type: "website",
+    },
   }
 }
 

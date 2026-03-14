@@ -39,7 +39,7 @@ export default function SignIn() {
     }
 
     if (result?.ok) {
-      router.push('/dashboard')
+      router.push('/profile')
       router.refresh()
     }
   }

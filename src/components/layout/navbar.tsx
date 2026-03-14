@@ -1,9 +1,12 @@
 import Link from "next/link"
-import { LogIn, BriefcaseBusiness } from "lucide-react"
+import { LogIn, BriefcaseBusiness, User, LogOut, LayoutDashboard } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { auth, signOut } from "@/lib/auth"
 
-export function Navbar() {
+export async function Navbar() {
+  const session = await auth()
+
   return (
     <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur">
       <div className="container flex h-16 items-center justify-between">
@@ -28,15 +31,55 @@ export function Navbar() {
           </Link>
         </nav>
         <div className="flex items-center gap-2">
-          <Button asChild variant="ghost" size="sm">
-            <Link href="/auth/signin" className="flex items-center gap-1">
-              <LogIn className="h-4 w-4" aria-hidden="true" />
-              <span>Sign in</span>
-            </Link>
-          </Button>
-          <Button asChild size="sm">
-            <Link href="/auth/register">Sign up</Link>
-          </Button>
+          {session?.user ? (
+            <>
+              {session.user.role === "ADMIN" && (
+                <Button asChild variant="ghost" size="sm">
+                  <Link href="/admin" className="flex items-center gap-1">
+                    <LayoutDashboard className="h-4 w-4" aria-hidden="true" />
+                    <span>Admin</span>
+                  </Link>
+                </Button>
+              )}
+              {session.user.role === "EMPLOYER" && (
+                <Button asChild variant="ghost" size="sm">
+                  <Link href="/employer" className="flex items-center gap-1">
+                    <LayoutDashboard className="h-4 w-4" aria-hidden="true" />
+                    <span>Dashboard</span>
+                  </Link>
+                </Button>
+              )}
+              <Button asChild variant="ghost" size="sm">
+                <Link href="/profile" className="flex items-center gap-1">
+                  <User className="h-4 w-4" aria-hidden="true" />
+                  <span>Profile</span>
+                </Link>
+              </Button>
+              <form
+                action={async () => {
+                  "use server"
+                  await signOut({ redirectTo: "/" })
+                }}
+              >
+                <Button type="submit" variant="ghost" size="sm" className="gap-1">
+                  <LogOut className="h-4 w-4" aria-hidden="true" />
+                  <span>Sign out</span>
+                </Button>
+              </form>
+            </>
+          ) : (
+            <>
+              <Button asChild variant="ghost" size="sm">
+                <Link href="/auth/signin" className="flex items-center gap-1">
+                  <LogIn className="h-4 w-4" aria-hidden="true" />
+                  <span>Sign in</span>
+                </Link>
+              </Button>
+              <Button asChild size="sm">
+                <Link href="/auth/register">Sign up</Link>
+              </Button>
+            </>
+          )}
         </div>
       </div>
     </header>
