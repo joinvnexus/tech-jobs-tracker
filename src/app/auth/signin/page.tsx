@@ -5,9 +5,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
 import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 const signInSchema = z.object({
   email: z.string().email('Invalid email'),
@@ -20,8 +22,11 @@ export default function SignIn() {
   const form = useForm<SignInForm>({
     resolver: zodResolver(signInSchema)
   })
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
+  const router = useRouter()
 
   const onSubmit = async (data: SignInForm) => {
+    setErrorMessage(null)
     const result = await signIn('credentials', {
       email: data.email,
       password: data.password,
@@ -29,7 +34,13 @@ export default function SignIn() {
     })
 
     if (result?.error) {
-      // toast error
+      setErrorMessage('Invalid email or password. Please try again.')
+      return
+    }
+
+    if (result?.ok) {
+      router.push('/dashboard')
+      router.refresh()
     }
   }
 
@@ -42,6 +53,11 @@ export default function SignIn() {
         </CardHeader>
         <CardContent>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            {errorMessage && (
+              <p className="rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+                {errorMessage}
+              </p>
+            )}
             <div>
               <Input placeholder="Email" {...form.register('email')} />
               {form.formState.errors.email && <p className="text-sm text-destructive">{form.formState.errors.email.message}</p>}
@@ -55,7 +71,7 @@ export default function SignIn() {
             </Button>
           </form>
           <div className="mt-6 text-center">
-            <p>Don't have an account? <Link href="/auth/register" className="text-primary hover:underline">Sign up</Link></p>
+            <p>Dont have an account? <Link href="/auth/register" className="text-primary hover:underline">Sign up</Link></p>
           </div>
         </CardContent>
       </Card>

@@ -36,14 +36,26 @@ export const authConfig: NextAuthConfig = {
           throw new Error('Missing credentials')
         }
 
+        const normalizedEmail = (credentials.email as string).trim().toLowerCase()
         const user = (await prisma.user.findUnique({
           where: {
-            email: credentials.email as string,
+            email: normalizedEmail,
           },
         })) as UserWithPassword | null
 
-        if (!user || !user.isActive || !user.passwordHash) {
-          throw new Error('Invalid credentials')
+        if (!user) {
+          console.warn("[auth] User not found for email:", normalizedEmail)
+          return null
+        }
+
+        if (!user.isActive) {
+          console.warn("[auth] User inactive for email:", normalizedEmail)
+          return null
+        }
+
+        if (!user.passwordHash) {
+          console.warn("[auth] User missing passwordHash for email:", normalizedEmail)
+          return null
         }
 
         const isValid = await bcrypt.compare(
@@ -52,7 +64,8 @@ export const authConfig: NextAuthConfig = {
         )
 
         if (!isValid) {
-          throw new Error("Invalid credentials")
+          console.warn("[auth] Invalid password for email:", normalizedEmail)
+          return null
         }
 
         return {

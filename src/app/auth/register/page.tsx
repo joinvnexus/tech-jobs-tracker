@@ -1,4 +1,7 @@
+ "use client"
+
 import Link from "next/link"
+import { useActionState } from "react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -13,6 +16,8 @@ import {
 import { registerAction } from "./register-action"
 
 export default function Register() {
+  const [state, formAction] = useActionState(registerAction, {})
+
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
       <Card className="w-full max-w-md">
@@ -23,7 +28,12 @@ export default function Register() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form action={registerAction} className="space-y-4">
+          <form action={formAction} className="space-y-4">
+            {state?.error && (
+              <p className="rounded-md border border-destructive/30 bg-destructive/10 px-3 py-2 text-sm text-destructive">
+                {state.error}
+              </p>
+            )}
             <div className="space-y-1">
               <Input name="name" placeholder="Full Name" />
             </div>
