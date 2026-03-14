@@ -1,41 +1,42 @@
-import { notFound } from "next/navigation"
+import { notFound, redirect } from "next/navigation";
+import Link from "next/link";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Textarea } from "@/components/ui/textarea"
-import { auth } from "@/lib/auth"
-import { prisma } from "@/lib/prisma"
-
-import { type ApplyFormState, applyToJobAction } from "./actions"
+} from "@/components/ui/card";
+import { auth } from "@/lib/auth";
+import { prisma } from "@/lib/prisma";
+import { ApplyForm } from "./apply-form";
 
 interface ApplyPageProps {
-  params: {
-    slug: string
-  }
+  params: Promise<{
+    slug: string;
+  }>;
 }
 
 export default async function ApplyPage({
   params,
 }: ApplyPageProps) {
-  const session = await auth()
+  const resolvedParams = await params;
+  const session = await auth();
+  
+  if (!session?.user) {
+    redirect("/auth/signin?callbackUrl=/jobs");
+  }
+
   const job = await prisma.job.findUnique({
-    where: { slug: params.slug },
+    where: { slug: resolvedParams.slug },
     include: {
       company: true,
     },
-  })
+  });
 
   if (!job || job.status !== "ACTIVE") {
-    notFound()
-  }
-
-  if (!session?.user) {
-    notFound()
+    notFound();
   }
 
   const existingApplication = await prisma.jobApplication.findUnique({
@@ -45,106 +46,120 @@ export default async function ApplyPage({
         userId: session.user.id,
       },
     },
-  })
+  });
 
   const profile = await prisma.userProfile.findUnique({
     where: { userId: session.user.id },
-  })
+  });
 
-  const initialState: ApplyFormState = {}
-
-  return (
-    <div className="container max-w-2xl py-10">
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">
-            Apply for {job.title}
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-6 text-sm text-slate-700">
-          <p>
-            You are applying to{" "}
-            <span className="font-medium">{job.company?.name}</span> for the role
-            of <span className="font-medium">{job.title}</span>.
-          </p>
-
-          <div className="space-y-2">
-            <p className="text-xs text-slate-500">Resume</p>
-            {profile?.resumeUrl ? (
-              <a
-                href={profile.resumeUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="text-primary hover:underline"
-              >
-                View your uploaded resume
-              </a>
-            ) : (
-              <p className="text-xs text-destructive">
-                You don&apos;t have a resume uploaded yet. Please upload one from
-                your profile before applying.
-              </p>
-            )}
-          </div>
-
-          {existingApplication ? (
-            <p className="rounded-md bg-muted px-3 py-2 text-xs text-slate-700">
-              You&apos;ve already applied to this job. You can&apos;t submit a
-              second application.
+  if (existingApplication) {
+    return (
+      <div className="container mx-auto max-w-4xl py-12">
+        <Card>
+          <CardContent className="flex flex-col items-center justify-center py-12">
+            <h2 className="mb-4 text-xl font-semibold">
+              You have already applied to this job
+            </h2>
+            <p className="mb-6 text-gray-600">
+              Check your applications to track the status.
             </p>
-          ) : (
-            <ApplyForm
-              jobId={job.id}
-              disabled={!profile?.resumeUrl}
-              initialState={initialState}
-            />
-          )}
-        </CardContent>
-      </Card>
-    </div>
-  )
-}
+            <div className="flex gap-4">
+              <Button asChild>
+                <Link href="/applications">My Applications</Link>
+              </Button>
+              <Button variant="outline" asChild>
+                <Link href="/jobs">Browse Jobs</Link>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
-"use client"
-
-import { useActionState } from "react"
-
-interface ApplyFormProps {
-  jobId: string
-  disabled: boolean
-  initialState: ApplyFormState
-}
-
-function ApplyForm({
-  jobId,
-  disabled,
-  initialState,
-}: ApplyFormProps){
-  const [state, formAction] = useActionState(applyToJobAction, initialState)
+  const initialState = {
+    success: false,
+    error: "",
+    jobId: job.id,
+  };
 
   return (
-    <form action={formAction} className="space-y-4">
-      {state.error ? (
-        <p className="rounded-md bg-destructive/10 px-3 py-2 text-xs text-destructive">
-          {state.error}
+    <div className="container mx-auto max-w-4xl py-12">
+      <div className="mb-8">
+        <Button variant="ghost" asChild className="mb-4">
+          <Link href={`/jobs/${resolvedParams.slug}`}>
+            ← Back to job details
+          </Link>
+        </Button>
+        <h1 className="text-3xl font-bold">Apply for {job.title}</h1>
+        <p className="mt-2 text-gray-600">
+          at {job.company?.name || "Company"}
         </p>
-      ) : null}
-      <input type="hidden" name="jobId" value={jobId} />
-      <div className="space-y-2">
-        <label htmlFor="coverLetter" className="text-sm font-medium">
-          Cover letter (optional)
-        </label>
-        <Textarea
-          id="coverLetter"
-          name="coverLetter"
-          rows={6}
-          placeholder="Explain why you're a great fit for this role."
-        />
       </div>
-      <Button type="submit" className="w-full" disabled={disabled}>
-        Submit application
-      </Button>
-    </form>
-  )
-}
 
+      <div className="grid gap-6 lg:grid-cols-3">
+        <div className="lg:col-span-2">
+          <Card>
+            <CardHeader>
+              <CardTitle>Application Details</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {profile?.resumeUrl ? (
+                <ApplyForm
+                  jobId={job.id}
+                  disabled={false}
+                  initialState={initialState}
+                />
+              ) : (
+                <div className="space-y-4">
+                  <p className="text-sm text-gray-600">
+                    Please complete your profile and upload a resume before
+                    applying.
+                  </p>
+                  <Button asChild>
+                    <Link href="/profile">Complete Profile</Link>
+                  </Button>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
+        <div>
+          <Card>
+            <CardHeader>
+              <CardTitle>Your Profile</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div>
+                <p className="text-sm font-medium">Name</p>
+                <p className="text-sm text-gray-600">{session.user.name}</p>
+              </div>
+              <div>
+                <p className="text-sm font-medium">Email</p>
+                <p className="text-sm text-gray-600">{session.user.email}</p>
+              </div>
+              {profile?.resumeUrl && (
+                <div>
+                  <p className="text-sm font-medium">Resume</p>
+                  <Button variant="link" className="h-auto p-0" asChild>
+                    <a
+                      href={profile.resumeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View Resume
+                    </a>
+                  </Button>
+                </div>
+              )}
+              <Button variant="outline" className="w-full" asChild>
+                <Link href="/profile">Edit Profile</Link>
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+}

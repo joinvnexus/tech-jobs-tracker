@@ -1,0 +1,53 @@
+"use client";
+
+import { cn } from "@/lib/utils";
+
+interface LoadingSpinnerProps {
+  size?: "sm" | "md" | "lg" | "xl";
+  className?: string;
+}
+
+const sizeClasses = {
+  sm: "h-4 w-4 border-2",
+  md: "h-6 w-6 border-2",
+  lg: "h-8 w-8 border-3",
+  xl: "h-12 w-12 border-4",
+};
+
+export function LoadingSpinner({ size = "md", className }: LoadingSpinnerProps) {
+  return (
+    <div
+      className={cn(
+        "animate-spin rounded-full border-gray-200 border-t-primary",
+        sizeClasses[size],
+        className
+      )}
+      role="status"
+      aria-label="Loading"
+    >
+      <span className="sr-only">Loading...</span>
+    </div>
+  );
+}
+
+// Full page loading state
+export function FullPageLoader() {
+  return (
+    <div className="flex min-h-[50vh] items-center justify-center">
+      <div className="flex flex-col items-center gap-4">
+        <LoadingSpinner size="lg" />
+        <p className="text-sm text-gray-500">Loading...</p>
+      </div>
+    </div>
+  );
+}
+
+// Inline loading state
+export function InlineLoader({ text = "Loading..." }: { text?: string }) {
+  return (
+    <div className="flex items-center gap-2">
+      <LoadingSpinner size="sm" />
+      <span className="text-sm text-gray-500">{text}</span>
+    </div>
+  );
+}
