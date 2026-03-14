@@ -1,20 +1,22 @@
-import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import type { Metadata } from "next";
+import { Inter, Plus_Jakarta_Sans } from "next/font/google";
 
-import { Footer } from "@/components/layout/footer"
-import { Navbar } from "@/components/layout/navbar"
+import { Footer } from "@/components/layout/footer";
+import { Navbar } from "@/components/layout/navbar";
 
-import "./globals.css"
+import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-})
+  display: "swap",
+});
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const plusJakarta = Plus_Jakarta_Sans({
+  variable: "--font-heading",
   subsets: ["latin"],
-})
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -34,6 +36,14 @@ export const metadata: Metadata = {
     title: "HireHub – Find Your Dream Job",
     description: "HireHub is a modern job marketplace connecting job seekers with top companies in Bangladesh and beyond.",
     siteName: "HireHub",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "HireHub - Job Marketplace",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
@@ -51,17 +61,17 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-background text-foreground antialiased`}
+        className={`${inter.variable} ${plusJakarta.variable} font-sans bg-background text-foreground antialiased`}
       >
         <div className="flex min-h-screen flex-col">
           <Navbar />
@@ -70,5 +80,5 @@ export default function RootLayout({
         </div>
       </body>
     </html>
-  )
+  );
 }

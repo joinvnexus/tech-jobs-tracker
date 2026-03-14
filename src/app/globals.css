@@ -1,26 +1,431 @@
 @import "tailwindcss";
 
+/* ============================================
+   HIREHUB BRAND DESIGN SYSTEM
+   ============================================ */
+
 :root {
+  /* Brand Primary - Professional Blue */
+  --brand-50: #eff6ff;
+  --brand-100: #dbeafe;
+  --brand-200: #bfdbfe;
+  --brand-300: #93c5fd;
+  --brand-400: #60a5fa;
+  --brand-500: #3b82f6;
+  --brand-600: #2563eb;
+  --brand-700: #1d4ed8;
+  --brand-800: #1e40af;
+  --brand-900: #1e3a8a;
+  --brand-950: #172554;
+
+  /* Role: Job Seeker - Teal */
+  --seeker-50: #f0fdfa;
+  --seeker-100: #ccfbf1;
+  --seeker-200: #99f6e4;
+  --seeker-300: #5eead4;
+  --seeker-400: #2dd4bf;
+  --seeker-500: #14b8a6;
+  --seeker-600: #0d9488;
+  --seeker-700: #0f766e;
+  --seeker-800: #115e59;
+  --seeker-900: #134e4a;
+
+  /* Role: Employer - Purple */
+  --employer-50: #faf5ff;
+  --employer-100: #f3e8ff;
+  --employer-200: #e9d5ff;
+  --employer-300: #d8b4fe;
+  --employer-400: #c084fc;
+  --employer-500: #a855f7;
+  --employer-600: #9333ea;
+  --employer-700: #7e22ce;
+  --employer-800: #6b21a8;
+  --employer-900: #581c87;
+
+  /* Role: Admin - Orange */
+  --admin-50: #fff7ed;
+  --admin-100: #ffedd5;
+  --admin-200: #fed7aa;
+  --admin-300: #fdba74;
+  --admin-400: #fb923c;
+  --admin-500: #f97316;
+  --admin-600: #ea580c;
+  --admin-700: #c2410c;
+  --admin-800: #9a3412;
+  --admin-900: #7c2d12;
+
+  /* Semantic Colors */
+  --success: #22c55e;
+  --success-foreground: #ffffff;
+  --warning: #eab308;
+  --warning-foreground: #000000;
+  --error: #ef4444;
+  --error-foreground: #ffffff;
+  --info: #0ea5e9;
+  --info-foreground: #ffffff;
+
+  /* Base Colors */
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0f172a;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #3b82f6;
+
+  /* Primary Brand */
+  --primary: #3b82f6;
+  --primary-foreground: #ffffff;
+  --primary-light: #dbeafe;
+
+  /* Secondary */
+  --secondary: #64748b;
+  --secondary-foreground: #ffffff;
+
+  /* Destructive */
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+
+  /* Accent */
+  --accent: #f1f5f9;
+  --accent-foreground: #0f172a;
+
+  /* Radius */
+  --radius: 0.75rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+  --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.15);
+  --shadow-glow-seeker: 0 0 40px rgba(20, 184, 166, 0.15);
+  --shadow-glow-employer: 0 0 40px rgba(168, 85, 247, 0.15);
+  --shadow-glow-admin: 0 0 40px rgba(249, 115, 22, 0.15);
 }
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0f172a;
+    --foreground: #f8fafc;
+    --card: #1e293b;
+    --card-foreground: #f8fafc;
+    --popover: #1e293b;
+    --popover-foreground: #f8fafc;
+    --muted: #1e293b;
+    --muted-foreground: #94a3b8;
+    --border: #334155;
+    --input: #334155;
+    --ring: #3b82f6;
+    --primary: #3b82f6;
+    --primary-foreground: #ffffff;
+    --primary-light: #1e3a8a;
+    --secondary: #475569;
+    --secondary-foreground: #ffffff;
+    --destructive: #7f1d1d;
+    --destructive-foreground: #fecaca;
+    --accent: #1e293b;
+    --accent-foreground: #f8fafc;
+  }
+}
+
+/* ============================================
+   THEME CONFIGURATION
+   ============================================ */
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  
+  /* Brand Colors */
+  --color-brand-50: var(--brand-50);
+  --color-brand-100: var(--brand-100);
+  --color-brand-200: var(--brand-200);
+  --color-brand-300: var(--brand-300);
+  --color-brand-400: var(--brand-400);
+  --color-brand-500: var(--brand-500);
+  --color-brand-600: var(--brand-600);
+  --color-brand-700: var(--brand-700);
+  --color-brand-800: var(--brand-800);
+  --color-brand-900: var(--brand-900);
+  --color-brand-950: var(--brand-950);
+
+  /* Seeker Colors */
+  --color-seeker-50: var(--seeker-50);
+  --color-seeker-100: var(--seeker-100);
+  --color-seeker-500: var(--seeker-500);
+  --color-seeker-600: var(--seeker-600);
+  --color-seeker-700: var(--seeker-700);
+
+  /* Employer Colors */
+  --color-employer-50: var(--employer-50);
+  --color-employer-100: var(--employer-100);
+  --color-employer-500: var(--employer-500);
+  --color-employer-600: var(--employer-600);
+  --color-employer-700: var(--employer-700);
+
+  /* Admin Colors */
+  --color-admin-50: var(--admin-50);
+  --color-admin-100: var(--admin-100);
+  --color-admin-500: var(--admin-500);
+  --color-admin-600: var(--admin-600);
+  --color-admin-700: var(--admin-700);
+
+  /* Semantic Colors */
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-error: var(--error);
+  --color-error-foreground: var(--error-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+
+  /* Shadows */
+  --shadow-glow: var(--shadow-glow);
+  --shadow-glow-seeker: var(--shadow-glow-seeker);
+  --shadow-glow-employer: var(--shadow-glow-employer);
+  --shadow-glow-admin: var(--shadow-glow-admin);
+
+  /* Font */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* ============================================
+   BASE STYLES
+   ============================================ */
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  font-feature-settings: "rlig" 1, "calt" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.5); }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.3s ease-out forwards;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, var(--muted) 25%, var(--border) 50%, var(--muted) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Staggered animations for lists */
+.stagger-1 { animation-delay: 50ms; }
+.stagger-2 { animation-delay: 100ms; }
+.stagger-3 { animation-delay: 150ms; }
+.stagger-4 { animation-delay: 200ms; }
+.stagger-5 { animation-delay: 250ms; }
+.stagger-6 { animation-delay: 300ms; }
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--brand-500), var(--brand-700));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-gradient-brand {
+  background: linear-gradient(135deg, var(--brand-50), white);
+}
+
+.bg-gradient-seeker {
+  background: linear-gradient(135deg, var(--seeker-50), white);
+}
+
+.bg-gradient-employer {
+  background: linear-gradient(135deg, var(--employer-50), white);
+}
+
+.bg-gradient-admin {
+  background: linear-gradient(135deg, var(--admin-50), white);
+}
+
+.border-accent {
+  border-color: var(--brand-500);
+}
+
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.focus-ring {
+  transition: ring 0.2s ease, box-shadow 0.2s ease;
+}
+
+.focus-ring:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--muted);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}
+
+/* ============================================
+   ROLE-BASED ACCENTS
+   ============================================ */
+
+/* Job Seeker Accent */
+.role-seeker {
+  --role-color: var(--seeker-500);
+  --role-light: var(--seeker-50);
+}
+
+.role-seeker .accent {
+  color: var(--seeker-500);
+}
+
+.role-seeker .accent-bg {
+  background-color: var(--seeker-50);
+}
+
+.role-seeker .accent-border {
+  border-color: var(--seeker-500);
+}
+
+.role-seeker .accent-glow {
+  box-shadow: var(--shadow-glow-seeker);
+}
+
+/* Employer Accent */
+.role-employer {
+  --role-color: var(--employer-500);
+  --role-light: var(--employer-50);
+}
+
+.role-employer .accent {
+  color: var(--employer-500);
+}
+
+.role-employer .accent-bg {
+  background-color: var(--employer-50);
+}
+
+.role-employer .accent-border {
+  border-color: var(--employer-500);
+}
+
+.role-employer .accent-glow {
+  box-shadow: var(--shadow-glow-employer);
+}
+
+/* Admin Accent */
+.role-admin {
+  --role-color: var(--admin-500);
+  --role-light: var(--admin-50);
+}
+
+.role-admin .accent {
+  color: var(--admin-500);
+}
+
+.role-admin .accent-bg {
+  background-color: var(--admin-50);
+}
+
+.role-admin .accent-border {
+  border-color: var(--admin-500);
+}
+
+.role-admin .accent-glow {
+  box-shadow: var(--shadow-glow-admin);
 }
