@@ -17,6 +17,7 @@ export function UsersActions({ userId, currentRole, isActive }: UsersActionsProp
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -32,6 +33,7 @@ export function UsersActions({ userId, currentRole, isActive }: UsersActionsProp
   const handleStatusToggle = async () => {
     setLoading(true)
     setIsOpen(false)
+    setError(null)
     try {
       const response = await fetch(`/api/admin/users/${userId}/status`, {
         method: "PUT",
@@ -41,9 +43,13 @@ export function UsersActions({ userId, currentRole, isActive }: UsersActionsProp
 
       if (response.ok) {
         router.refresh()
+      } else {
+        const data = await response.json()
+        setError(data.error || "Failed to update user")
       }
     } catch (error) {
       console.error("Failed to toggle user status:", error)
+      setError("An error occurred. Please try again.")
     } finally {
       setLoading(false)
     }
@@ -54,6 +60,7 @@ export function UsersActions({ userId, currentRole, isActive }: UsersActionsProp
     
     setLoading(true)
     setIsOpen(false)
+    setError(null)
     try {
       const response = await fetch(`/api/admin/users/${userId}/status`, {
         method: "PUT",
@@ -63,9 +70,13 @@ export function UsersActions({ userId, currentRole, isActive }: UsersActionsProp
 
       if (response.ok) {
         router.refresh()
+      } else {
+        const data = await response.json()
+        setError(data.error || "Failed to update user")
       }
     } catch (error) {
       console.error("Failed to change user role:", error)
+      setError("An error occurred. Please try again.")
     } finally {
       setLoading(false)
     }
@@ -73,6 +84,9 @@ export function UsersActions({ userId, currentRole, isActive }: UsersActionsProp
 
   return (
     <div className="relative" ref={dropdownRef}>
+      {error && (
+        <p className="mb-2 text-xs text-destructive">{error}</p>
+      )}
       <Button 
         variant="ghost" 
         size="sm" 
@@ -86,6 +100,7 @@ export function UsersActions({ userId, currentRole, isActive }: UsersActionsProp
         <div className="absolute right-0 z-50 mt-1 w-48 rounded-md border bg-background shadow-lg">
           <div className="py-1">
             <button
+              type="button"
               onClick={handleStatusToggle}
               disabled={loading}
               className="flex w-full items-center px-4 py-2 text-sm text-left hover:bg-accent"
@@ -96,6 +111,7 @@ export function UsersActions({ userId, currentRole, isActive }: UsersActionsProp
               <>
                 <div className="border-t" />
                 <button
+                  type="button"
                   onClick={() => handleRoleChange("SEEKER")}
                   disabled={currentRole === "SEEKER" || loading}
                   className="flex w-full items-center px-4 py-2 text-sm text-left hover:bg-accent disabled:opacity-50"
@@ -103,6 +119,7 @@ export function UsersActions({ userId, currentRole, isActive }: UsersActionsProp
                   Set as Job Seeker
                 </button>
                 <button
+                  type="button"
                   onClick={() => handleRoleChange("EMPLOYER")}
                   disabled={currentRole === "EMPLOYER" || loading}
                   className="flex w-full items-center px-4 py-2 text-sm text-left hover:bg-accent disabled:opacity-50"

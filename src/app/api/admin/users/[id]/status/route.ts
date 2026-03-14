@@ -17,6 +17,12 @@ export async function PUT(
     const body = await request.json()
     const { isActive, role } = body
 
+    // Validate role if provided
+    const validRoles = ["SEEKER", "EMPLOYER", "ADMIN"]
+    if (role && !validRoles.includes(role)) {
+      return NextResponse.json({ error: "Invalid role" }, { status: 400 })
+    }
+
     const user = await prisma.user.update({
       where: { id },
       data: {
