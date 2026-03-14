@@ -1,21 +1,15 @@
 import { notFound } from "next/navigation"
-import type { ReactNode } from "react"
 
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
+import { Badge } from "@/components/ui/badge"
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
+import { CompanyForm } from "./company-form"
+import Link from "next/link"
+import { Plus, Briefcase, Users, TrendingUp } from "lucide-react"
 
-import { type CompanyFormState, upsertCompanyAction } from "./actions"
-
-export default async function EmployerDashboardPage(): Promise<ReactNode> {
+export default async function EmployerDashboardPage() {
   const session = await auth()
 
   if (!session?.user || session.user.role !== "EMPLOYER") {
@@ -33,180 +27,168 @@ export default async function EmployerDashboardPage(): Promise<ReactNode> {
     }),
   ])
 
-  const totalJobs = stats.reduce((sum, item) => sum + item._count, 0)
-  const activeJobs =
-    stats.find((item) => item.status === "ACTIVE")?._count ?? 0
+  const totalJobs = stats.reduce((acc, s) => acc + s._count, 0)
+  const activeJobs = stats.find((s) => s.status === "ACTIVE")?._count ?? 0
 
-  const totalApplications = await prisma.jobApplication.count({
-    where: {
-      job: {
-        company: { userId: session.user.id },
+  const recentJobs = await prisma.job.findMany({
+    where: { company: { userId: session.user.id } },
+    orderBy: { createdAt: "desc" },
+    take: 5,
+    include: {
+      _count: {
+        select: { applications: true },
       },
     },
   })
 
-  const companyState: CompanyFormState = {}
-
   return (
-    <div className="container py-10 space-y-6">
-      <div>
-        <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">
-          Employer dashboard
-        </h1>
-        <p className="mt-2 text-sm text-slate-600">
-          Manage your company profile, jobs, and applicants from one place.
-        </p>
+    <div className="container py-8">
+      <div className="mb-8 flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold">Employer Dashboard</h1>
+          <p className="text-muted-foreground">
+            Welcome back{company ? `, ${company.name}` : ""}!
+          </p>
+        </div>
+        {company && (
+          <Button asChild>
+            <Link href="/employer/jobs/new">
+              <Plus className="mr-2 h-4 w-4" />
+              Post a Job
+            </Link>
+          </Button>
+        )}
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      {/* Stats */}
+      <div className="mb-8 grid gap-4 md:grid-cols-3">
         <Card>
-          <CardHeader>
-            <CardTitle className="text-sm font-medium">
-              Total jobs
-            </CardTitle>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium">Total Jobs</CardTitle>
+            <Briefcase className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent className="text-2xl font-semibold">
-            {totalJobs}
+          <CardContent>
+            <div className="text-2xl font-bold">{totalJobs}</div>
+            <p className="text-xs text-muted-foreground">Jobs posted</p>
           </CardContent>
         </Card>
         <Card>
-          <CardHeader>
-            <CardTitle className="text-sm font-medium">
-              Active jobs
-            </CardTitle>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium">Active Jobs</CardTitle>
+            <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent className="text-2xl font-semibold">
-            {activeJobs}
+          <CardContent>
+            <div className="text-2xl font-bold">{activeJobs}</div>
+            <p className="text-xs text-muted-foreground">Live listings</p>
           </CardContent>
         </Card>
         <Card>
-          <CardHeader>
-            <CardTitle className="text-sm font-medium">
-              Total applications
-            </CardTitle>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium">Total Applications</CardTitle>
+            <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
-          <CardContent className="text-2xl font-semibold">
-            {totalApplications}
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {recentJobs.reduce((acc, job) => acc + job._count.applications, 0)}
+            </div>
+            <p className="text-xs text-muted-foreground">Received</p>
           </CardContent>
         </Card>
       </div>
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">Company profile</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <CompanyForm company={company} initialState={companyState} />
-        </CardContent>
-      </Card>
+      <div className="grid gap-8 lg:grid-cols-2">
+        {/* Company Profile */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Company Profile</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {company ? (
+              <div className="space-y-4">
+                <div className="flex items-center gap-4">
+                  <div className="flex h-16 w-16 items-center justify-center rounded-lg bg-primary/10 text-2xl font-bold text-primary">
+                    {company.logoUrl ? (
+                      <img
+                        src={company.logoUrl}
+                        alt={company.name}
+                        className="h-full w-full rounded-lg object-cover"
+                      />
+                    ) : (
+                      company.name.charAt(0)
+                    )}
+                  </div>
+                  <div>
+                    <h3 className="font-semibold">{company.name}</h3>
+                    <p className="text-sm text-muted-foreground">
+                      {company.location || "No location set"}
+                    </p>
+                  </div>
+                </div>
+                {company.description && (
+                  <p className="text-sm text-muted-foreground">
+                    {company.description}
+                  </p>
+                )}
+                <CompanyForm
+                  company={company}
+                  initialState={{}}
+                />
+              </div>
+            ) : (
+              <div className="space-y-4">
+                <p className="text-sm text-muted-foreground">
+                  Create your company profile to start posting jobs.
+                </p>
+                <CompanyForm company={null} initialState={{}} />
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Recent Jobs */}
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between">
+            <CardTitle>Recent Jobs</CardTitle>
+            <Button asChild variant="ghost" size="sm">
+              <Link href="/employer/jobs">View all</Link>
+            </Button>
+          </CardHeader>
+          <CardContent>
+            {recentJobs.length === 0 ? (
+              <p className="text-sm text-muted-foreground">
+                No jobs posted yet. Post your first job to get started.
+              </p>
+            ) : (
+              <div className="space-y-4">
+                {recentJobs.map((job) => (
+                  <div
+                    key={job.id}
+                    className="flex items-center justify-between rounded-lg border p-3"
+                  >
+                    <div>
+                      <p className="font-medium">{job.title}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {job.location} • {job._count.applications} applications
+                      </p>
+                    </div>
+                    <Badge
+                      variant={
+                        job.status === "ACTIVE"
+                          ? "default"
+                          : job.status === "PENDING"
+                          ? "secondary"
+                          : "outline"
+                      }
+                    >
+                      {job.status}
+                    </Badge>
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
     </div>
   )
 }
-
-"use client"
-
-import { useActionState } from "react"
-
-interface CompanyFormProps {
-  company:
-    | {
-        name: string
-        slug: string
-        description: string | null
-        website: string | null
-        location: string | null
-      }
-    | null
-  initialState: CompanyFormState
-}
-
-function CompanyForm({
-  company,
-  initialState,
-}: CompanyFormProps): React.ReactElement {
-  const [state, formAction] = useActionState(upsertCompanyAction, initialState)
-
-  const defaultSlug =
-    company?.slug ??
-    (company?.name
-      ? company.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")
-      : "")
-
-  return (
-    <form action={formAction} className="space-y-4">
-      {state.error ? (
-        <p className="rounded-md bg-destructive/10 px-3 py-2 text-sm text-destructive">
-          {state.error}
-        </p>
-      ) : null}
-
-      <div className="grid gap-4 md:grid-cols-2">
-        <div className="space-y-2">
-          <label htmlFor="name" className="text-sm font-medium">
-            Company name
-          </label>
-          <Input
-            id="name"
-            name="name"
-            required
-            defaultValue={company?.name ?? ""}
-          />
-        </div>
-        <div className="space-y-2">
-          <label htmlFor="slug" className="text-sm font-medium">
-            Company slug
-          </label>
-          <Input
-            id="slug"
-            name="slug"
-            required
-            defaultValue={defaultSlug}
-            placeholder="e.g. hirehub-labs"
-          />
-        </div>
-      </div>
-
-      <div className="grid gap-4 md:grid-cols-2">
-        <div className="space-y-2">
-          <label htmlFor="website" className="text-sm font-medium">
-            Website
-          </label>
-          <Input
-            id="website"
-            name="website"
-            defaultValue={company?.website ?? ""}
-            placeholder="https://"
-          />
-        </div>
-        <div className="space-y-2">
-          <label htmlFor="location" className="text-sm font-medium">
-            Location
-          </label>
-          <Input
-            id="location"
-            name="location"
-            defaultValue={company?.location ?? ""}
-          />
-        </div>
-      </div>
-
-      <div className="space-y-2">
-        <label htmlFor="description" className="text-sm font-medium">
-          Description
-        </label>
-        <Textarea
-          id="description"
-          name="description"
-          rows={4}
-          defaultValue={company?.description ?? ""}
-          placeholder="Briefly describe what your company does and your team culture."
-        />
-      </div>
-
-      <div className="flex justify-end">
-        <Button type="submit">Save company profile</Button>
-      </div>
-    </form>
-  )
-}
-
