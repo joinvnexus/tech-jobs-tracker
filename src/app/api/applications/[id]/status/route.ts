@@ -20,7 +20,8 @@ export async function PUT(
 ): Promise<Response> {
   const session = await auth();
 
-  if (!session?.user) {
+  // Enforce EMPLOYER role - only employers can update application status
+  if (!session?.user || session.user.role !== "EMPLOYER") {
     return new NextResponse("Unauthorized", { status: 401 });
   }
 

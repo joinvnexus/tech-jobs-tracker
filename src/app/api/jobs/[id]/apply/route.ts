@@ -20,7 +20,8 @@ export async function POST(
 ): Promise<Response> {
   const session = await auth();
 
-  if (!session?.user) {
+  // Enforce SEEKER role - only job seekers can apply to jobs
+  if (!session?.user || session.user.role !== "SEEKER") {
     return new NextResponse("Unauthorized", { status: 401 });
   }
 

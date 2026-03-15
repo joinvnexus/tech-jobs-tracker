@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+import { auth } from "@/lib/auth";
 
 import { Footer } from "@/components/layout/footer";
-import { Navbar } from "@/components/layout/navbar";
+import { NavbarClient } from "@/components/layout/navbar";
 
 import "./globals.css";
 
@@ -63,18 +64,20 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+
   return (
     <html lang="en" className="scroll-smooth">
       <body
         className={`${inter.variable} ${plusJakarta.variable} font-sans bg-background text-foreground antialiased`}
       >
         <div className="flex min-h-screen flex-col">
-          <Navbar />
+          <NavbarClient session={session} />
           <main className="flex-1">{children}</main>
           <Footer />
         </div>

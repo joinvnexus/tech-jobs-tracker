@@ -1,11 +1,10 @@
 import Link from "next/link"
+import { redirect } from "next/navigation"
 import { 
   Bookmark, 
   MapPin, 
   BriefcaseBusiness,
   Clock,
-  // ArrowRight,
-  // Trash2
 } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
@@ -13,7 +12,6 @@ import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
-  // CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -24,24 +22,9 @@ import { formatDistanceToNow } from "date-fns"
 export default async function SavedJobsPage() {
   const session = await auth()
 
-  if (!session?.user) {
-    return (
-      <div className="min-h-screen bg-slate-50/50 py-10">
-        <div className="container max-w-4xl px-4">
-          <Card className="border-0 shadow-lg shadow-slate-200/60">
-            <CardHeader>
-              <CardTitle className="text-base">Sign in required</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-3 text-sm text-slate-700">
-              <p>You need to be signed in to view saved jobs.</p>
-              <Button asChild size="sm">
-                <Link href="/auth/signin">Go to sign in</Link>
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    )
+  // Enforce SEEKER role - only job seekers can view saved jobs
+  if (!session?.user || session.user.role !== "SEEKER") {
+    redirect("/")
   }
 
   const saved = await prisma.savedJob.findMany({

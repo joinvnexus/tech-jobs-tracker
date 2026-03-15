@@ -16,16 +16,17 @@ import { prisma } from "@/lib/prisma"
 import { SaveJobButton } from "./save-button"
 
 interface JobDetailsPageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 export async function generateMetadata({
   params,
 }: JobDetailsPageProps): Promise<Metadata> {
+  const resolvedParams = await params
   const job = await prisma.job.findUnique({
-    where: { slug: params.slug },
+    where: { slug: resolvedParams.slug },
     include: {
       company: true,
     },
@@ -51,9 +52,10 @@ export async function generateMetadata({
 export default async function JobDetailsPage({
   params,
 }: JobDetailsPageProps) {
+  const resolvedParams = await params
   const session = await auth()
   const job = await prisma.job.findUnique({
-    where: { slug: params.slug },
+    where: { slug: resolvedParams.slug },
     include: {
       company: true,
       savedJobs: session?.user
@@ -183,7 +185,7 @@ export default async function JobDetailsPage({
                 cover letter in the next step.
               </p>
               <Button asChild className="w-full">
-                <Link href={`/jobs/${params.slug}/apply`}>Apply now</Link>
+                <Link href={`/jobs/${resolvedParams.slug}/apply`}>Apply now</Link>
               </Button>
               {session?.user ? (
                 <SaveJobButton

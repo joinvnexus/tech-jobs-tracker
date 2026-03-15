@@ -30,7 +30,9 @@ export async function GET(
   _request: NextRequest,
   { params }: Params,
 ): Promise<Response> {
+  const session = await auth()
   const { id } = await params
+
   const job = await prisma.job.findUnique({
     where: { id },
     include: {
@@ -40,6 +42,20 @@ export async function GET(
 
   if (!job) {
     return new NextResponse("Not found", { status: 404 })
+  }
+
+  // If job is not ACTIVE, only allow EMPLOYER (owner), ADMIN, or authenticated users
+  if (job.status !== "ACTIVE") {
+    if (!session?.user) {
+      return new NextResponse("Not found", { status: 404 })
+    }
+    
+    const isAdmin = session.user.role === "ADMIN"
+    const isOwner = job.company?.userId === session.user.id
+    
+    if (!isAdmin && !isOwner) {
+      return new NextResponse("Not found", { status: 404 })
+    }
   }
 
   return NextResponse.json(job)

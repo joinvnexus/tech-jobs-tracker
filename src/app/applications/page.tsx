@@ -30,8 +30,8 @@ import { formatDistanceToNow } from "date-fns"
 export default async function JobSeekerDashboard() {
   const session = await auth()
 
-  if (!session?.user) {
-    redirect("/auth/signin")
+  if (!session?.user || session.user.role !== "SEEKER") {
+    redirect("/")
   }
 
   // Get user stats

@@ -11,7 +11,8 @@ const bodySchema = z.object({
 export async function GET(): Promise<Response> {
   const session = await auth()
 
-  if (!session?.user) {
+  // Enforce SEEKER role - only job seekers can access saved jobs
+  if (!session?.user || session.user.role !== "SEEKER") {
     return new NextResponse("Unauthorized", { status: 401 })
   }
 
@@ -29,7 +30,8 @@ export async function GET(): Promise<Response> {
 export async function POST(request: Request): Promise<Response> {
   const session = await auth()
 
-  if (!session?.user) {
+  // Enforce SEEKER role - only job seekers can save jobs
+  if (!session?.user || session.user.role !== "SEEKER") {
     return new NextResponse("Unauthorized", { status: 401 })
   }
 
