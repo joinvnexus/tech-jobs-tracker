@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X, ChevronDown, LogOut, User, Briefcase, Users, Building2, Settings, LayoutDashboard } from "lucide-react";
+import { Menu, X, ChevronDown, LogOut, User, Briefcase, Users, Building2, Settings, LayoutDashboard, Bell, Bookmark } from "lucide-react";
 import { Session } from "next-auth";
 import { handleSignOut } from "@/components/layout/navbar-actions";
 
@@ -20,7 +20,7 @@ const ROLE_DROPDOWN = {
   SEEKER: [
     { href: "/profile", label: "Dashboard", icon: LayoutDashboard },
     { href: "/applications", label: "My Applications", icon: Briefcase },
-    { href: "/saved-jobs", label: "Saved Jobs", icon: Briefcase },
+    { href: "/saved-jobs", label: "Saved Jobs", icon: Bookmark },
   ],
 
   EMPLOYER: [
@@ -50,6 +50,34 @@ export default function NavbarClient({ session }: NavbarProps) {
 
   const dropdownItem =
     "flex items-center gap-3 px-4 py-2.5 text-sm text-slate-600 hover:bg-gradient-to-r hover:from-brand-50 hover:to-white hover:text-brand-600 transition-all duration-150";
+
+  // Quick action links for logged in users
+  const getQuickLinks = () => {
+    if (!userRole) return [];
+    
+    switch (userRole) {
+      case 'SEEKER':
+        return [
+          { href: "/jobs", label: "Browse Jobs", icon: Briefcase },
+          { href: "/applications", label: "Applications", icon: Briefcase },
+          { href: "/saved-jobs", label: "Saved", icon: Bookmark },
+        ];
+      case 'EMPLOYER':
+        return [
+          { href: "/employer/jobs/new", label: "Post Job", icon: Briefcase },
+          { href: "/employer/jobs", label: "My Jobs", icon: Briefcase },
+        ];
+      case 'ADMIN':
+        return [
+          { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+          { href: "/admin/users", label: "Users", icon: Users },
+        ];
+      default:
+        return [];
+    }
+  };
+
+  const quickLinks = getQuickLinks();
 
   return (
     <header className="sticky top-0 z-50 backdrop-blur-xl bg-white/80 border-b border-slate-200/50 shadow-sm">
@@ -93,6 +121,25 @@ export default function NavbarClient({ session }: NavbarProps) {
         {/* Right Section */}
         <div className="flex items-center gap-2 md:gap-3">
 
+          {/* Quick Links for logged in users */}
+          {session && quickLinks.length > 0 && (
+            <div className="hidden lg:flex items-center gap-1 mr-2">
+              {quickLinks.map((link) => {
+                const Icon = link.icon;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    className="px-3 py-1.5 text-xs font-medium text-slate-500 hover:text-brand-600 rounded-lg hover:bg-brand-50 transition-all"
+                  >
+                    <Icon className="w-3.5 h-3.5 inline mr-1" />
+                    {link.label}
+                  </Link>
+                );
+              })}
+            </div>
+          )}
+
           {/* Guest buttons */}
           {!session && (
             <>
@@ -124,7 +171,7 @@ export default function NavbarClient({ session }: NavbarProps) {
                   {session.user?.name?.[0]?.toUpperCase() || "U"}
                 </div>
 
-                <ChevronDown className={`h-4 w-4 text-slate-400 transition-transform duration-200 ${profileOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown className={`h-4 w-4 text-slate-400 transition-transform duration-200 hidden md:block ${profileOpen ? 'rotate-180' : ''}`} />
               </button>
 
               {profileOpen && (
@@ -233,6 +280,27 @@ export default function NavbarClient({ session }: NavbarProps) {
                 </Link>
               );
             })}
+
+            {/* Mobile Quick Links */}
+            {session && quickLinks.length > 0 && (
+              <div className="pt-2 mt-2 border-t border-slate-100">
+                <p className="px-4 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">Quick Access</p>
+                {quickLinks.map((link) => {
+                  const Icon = link.icon;
+                  return (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-600 hover:bg-brand-50 hover:text-brand-600 transition-all duration-200"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      <Icon className="w-5 h-5" />
+                      <span className="font-medium">{link.label}</span>
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
 
             {!session && (
               <Link
