@@ -5,11 +5,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
- import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
-import { signIn } from 'next-auth/react'
+import { signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const signInSchema = z.object({
   email: z.string().email('Invalid email'),
@@ -24,6 +24,22 @@ export default function SignIn() {
   })
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const router = useRouter()
+  const { data: session } = useSession()
+
+  // Redirect based on user role after successful login
+  useEffect(() => {
+    if (session?.user?.role) {
+      const role = session.user.role as string
+      if (role === 'ADMIN') {
+        router.push('/admin')
+      } else if (role === 'EMPLOYER') {
+        router.push('/employer')
+      } else if (role === 'SEEKER') {
+        router.push('/saved-jobs')
+      }
+      router.refresh()
+    }
+  }, [session, router])
 
   const onSubmit = async (data: SignInForm) => {
     setErrorMessage(null)
@@ -36,11 +52,6 @@ export default function SignIn() {
     if (result?.error) {
       setErrorMessage('Invalid email or password. Please try again.')
       return
-    }
-
-    if (result?.ok) {
-      router.push('/profile')
-      router.refresh()
     }
   }
 

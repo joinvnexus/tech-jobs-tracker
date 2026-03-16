@@ -1,5 +1,5 @@
 // User roles
-export type Role = "JOBSEEKER" | "EMPLOYER" | "ADMIN" | "MODERATOR";
+export type Role = "SEEKER" | "EMPLOYER" | "ADMIN" | "MODERATOR";
 
 // Job types
 export type JobType = 

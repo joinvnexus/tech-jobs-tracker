@@ -50,7 +50,7 @@ export const blogPostSchema = z.object({
 export const userUpdateSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters").optional(),
   email: z.string().email("Please enter a valid email address").optional(),
-  role: z.enum(["JOBSEEKER", "EMPLOYER", "ADMIN", "MODERATOR"]).optional(),
+  role: z.enum(["SEEKER", "EMPLOYER", "ADMIN", "MODERATOR"]).optional(),
   isActive: z.boolean().optional(),
 });
 

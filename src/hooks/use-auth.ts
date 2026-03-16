@@ -34,12 +34,12 @@ export function useAuth(): UseAuthReturn {
         email: session.user.email as string,
         name: session.user.name,
         image: session.user.image,
-        role: (session.user as { role?: string }).role || "JOBSEEKER",
+        role: (session.user as { role?: string }).role || "SEEKER",
       }
     : null;
 
   const isEmployer = user?.role === "EMPLOYER";
-  const isJobSeeker = user?.role === "JOBSEEKER";
+  const isJobSeeker = user?.role === "SEEKER";
   const isAdmin = user?.role === "ADMIN";
 
   const logout = useCallback(async () => {
