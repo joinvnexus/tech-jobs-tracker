@@ -1,6 +1,9 @@
 ﻿@import "tailwindcss";
 
 :root {
+  --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-heading: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
   --background: 210 40% 98%;
   --foreground: 222 47% 11%;
   --muted: 215 16% 47%;

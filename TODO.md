@@ -3,7 +3,7 @@
 - [x] App Shell (layout, header, footer) - Global structure, nav, footer links - Props: children; State: HeaderClient.isMenuOpen - Dependencies: none
 - [x] Design tokens (globals.css + tailwind config) - Colors, typography, spacing, radii, shadows - Props/State: none - Dependencies: none
 - [x] UI Primitives (Button, Input, Card, Badge, Avatar) - Reusable core UI - Props: variant, size, asChild - Dependencies: tokens
-- [ ] Home Page - Hero, featured jobs, categories, CTA - Props: featured jobs list - Dependencies: App Shell, UI Primitives
+- [x] Home Page - Hero, featured jobs, categories, CTA - Props: featured jobs list - Dependencies: App Shell, UI Primitives
 - [ ] Jobs Listing Page - Server fetch + client filters - Props: jobs list, filters config - State: filters, sort, page - Dependencies: JobsClient, JobCard
 - [ ] JobsClient - Handles filtering/sorting/pagination - Props: initial data - State: filters, sort, page, viewMode - Dependencies: JobFilterSidebar, JobListToolbar
 - [ ] Job Card - Job summary display - Props: title, company, location, tags, salary, postedAt - Dependencies: UI Card/Badge

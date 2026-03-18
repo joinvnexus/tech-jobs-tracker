@@ -1,23 +1,9 @@
 ﻿import type { Metadata } from "next";
-import { Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
-
 import "./globals.css";
 
 import { auth } from "@/lib/auth";
 import AppShell from "@/components/layout/app-shell";
 import { AuthProvider } from "@/providers/auth-provider";
-
-const bodyFont = Plus_Jakarta_Sans({
-  variable: "--font-body",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const headingFont = Space_Grotesk({
-  variable: "--font-heading",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: {
@@ -37,7 +23,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={`${bodyFont.variable} ${headingFont.variable} antialiased`}>
+      <body className="antialiased">
         <AuthProvider>
           <AppShell session={session}>{children}</AppShell>
         </AuthProvider>
