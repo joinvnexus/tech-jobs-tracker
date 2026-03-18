@@ -68,7 +68,7 @@ export function JobCard({
         "group/job relative overflow-hidden transition-all duration-300",
         "hover:shadow-lg hover:-translate-y-1 hover:border-brand-200",
         // Featured variant has accent border
-        isFeatured ? "border-l-4 border-l-amber-500" : "border-slate-200",
+        isFeatured ? "border-l-4 border-l-amber-500" : "border-border",
         // Compact variant
         isCompact ? "p-4" : "p-5",
         className
@@ -106,14 +106,14 @@ export function JobCard({
         <div className="flex-1 min-w-0">
           {/* Title & Company */}
           <div className={cn("space-y-1", isCompact && "flex-1")}>
-            <CardTitle className="group-hover/job:text-brand-600 transition-colors line-clamp-2">
+            <CardTitle className="group-hover/job:text-brand-600 transition-colors line-clamp-2 text-foreground">
               <Link href={`/jobs/${job.slug}`} className="focus:outline-none">
                 {job.title}
               </Link>
             </CardTitle>
             
             {!isCompact && (
-              <CardDescription className="font-medium text-slate-700">
+              <CardDescription className="font-medium text-foreground/80">
                 {job.company.name}
               </CardDescription>
             )}
@@ -121,7 +121,7 @@ export function JobCard({
           
           {/* Details - Compact shows inline, default shows as grid */}
           {isCompact ? (
-            <div className="flex flex-wrap items-center gap-2 mt-2 text-xs text-slate-500">
+            <div className="flex flex-wrap items-center gap-2 mt-2 text-xs text-muted-foreground">
               <Badge variant="outline" className="text-[10px] py-0 px-1.5">
                 {formatJobType(job.jobType)}
               </Badge>
@@ -130,23 +130,23 @@ export function JobCard({
                 {job.location}
               </span>
               {job.salaryRange && (
-                <span className="text-green-600 font-medium">
+                <span className="text-emerald-600 font-medium">
                   {job.salaryRange}
                 </span>
               )}
             </div>
           ) : (
-            <div className="flex flex-wrap items-center gap-3 mt-3 text-sm text-slate-600">
+            <div className="flex flex-wrap items-center gap-3 mt-3 text-sm text-muted-foreground">
               <span className="flex items-center gap-1.5">
-                <Briefcase className="w-4 h-4 text-slate-400" />
+                <Briefcase className="w-4 h-4 text-muted-foreground/70" />
                 {formatJobType(job.jobType)}
               </span>
               <span className="flex items-center gap-1.5">
-                <MapPin className="w-4 h-4 text-slate-400" />
+                <MapPin className="w-4 h-4 text-muted-foreground/70" />
                 {job.location}
               </span>
               {job.salaryRange && (
-                <span className="flex items-center gap-1.5 text-green-600 font-medium">
+                <span className="flex items-center gap-1.5 text-emerald-600 font-medium">
                   <DollarSign className="w-4 h-4" />
                   {job.salaryRange}
                 </span>
@@ -166,7 +166,7 @@ export function JobCard({
                 </Button>
               )}
               {isCompact && (
-                <Button asChild size="sm" variant="ghost" className="text-slate-500">
+                <Button asChild size="sm" variant="ghost" className="text-muted-foreground">
                   <Link href={`/jobs/${job.slug}`}>View</Link>
                 </Button>
               )}
@@ -184,7 +184,7 @@ export function JobCard({
               )}
               
               {!isCompact && (
-                <div className="hidden sm:flex items-center gap-1.5 text-xs text-slate-400">
+                <div className="hidden sm:flex items-center gap-1.5 text-xs text-muted-foreground">
                   <Clock className="w-3.5 h-3.5" />
                   {formatDate(job.createdAt)}
                 </div>
@@ -194,13 +194,13 @@ export function JobCard({
           
           {/* Footer info - only in default variant */}
           {!isCompact && (
-            <div className="flex items-center justify-between mt-4 pt-3 border-t border-slate-100">
-              <div className="flex items-center gap-1.5 text-xs text-slate-400">
+            <div className="flex items-center justify-between mt-4 pt-3 border-t border-border/60">
+              <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                 <Clock className="w-3.5 h-3.5" />
                 {formatDate(job.createdAt)}
               </div>
               {job.views !== undefined && (
-                <div className="flex items-center gap-1.5 text-xs text-slate-400">
+                <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
                   <Eye className="w-3.5 h-3.5" />
                   {job.views.toLocaleString()} views
                 </div>

@@ -35,7 +35,7 @@ const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
       <div className={cn(
         "group relative flex w-full max-w-md items-stretch focus-within:ring-2",
         {
-          "ring-brand-500/20 shadow-glow": variant === "hero",
+          "ring-brand-500/20 shadow-glow-brand": variant === "hero",
           "max-w-sm": variant === "compact",
         },
         className
@@ -50,7 +50,7 @@ const SearchInput = React.forwardRef<HTMLInputElement, SearchInputProps>(
           ref={inputRef}
           className={cn(
             "h-12 border-0 !ring-0 !ring-offset-0 bg-background pl-0 pr-12 text-base shadow-none placeholder:text-muted-foreground/80 focus-visible:ring-0",
-            "focus-visible:border-brand-500 focus-visible:shadow-glow",
+            "focus-visible:border-brand-500 focus-visible:shadow-glow-brand",
             {
               "rounded-l-lg shadow-xl": variant === "hero",
               "rounded-none": variant !== "hero",

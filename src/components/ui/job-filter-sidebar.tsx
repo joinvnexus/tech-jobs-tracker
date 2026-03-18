@@ -24,6 +24,8 @@ interface JobFilterSidebarProps {
   activeFilters: string[]
   onFilterChange: (filters: string[]) => void
   onLocationSearch: (value: string) => void
+  mode?: "sidebar" | "panel"
+  onClose?: () => void
   className?: string
 }
 
@@ -78,6 +80,8 @@ export function JobFilterSidebar({
   activeFilters,
   onFilterChange,
   onLocationSearch,
+  mode = "sidebar",
+  onClose,
   className
 }: JobFilterSidebarProps) {
   const [isCollapsed, setIsCollapsed] = React.useState(false)
@@ -104,10 +108,13 @@ export function JobFilterSidebar({
     return `${key.charAt(0).toUpperCase()}${key.slice(1)}: ${value}`
   }
 
+  const isPanel = mode === "panel"
+
   return (
     <div className={cn(
-      "w-full lg:w-80 xl:w-96 border-r bg-background h-screen sticky top-0 overflow-y-auto",
-      isCollapsed && "hidden lg:block lg:w-16",
+      "bg-background overflow-y-auto",
+      isPanel ? "h-full w-full" : "h-screen sticky top-0 w-full lg:w-80 xl:w-96 border-r",
+      !isPanel && isCollapsed && "hidden lg:block lg:w-16",
       className
     )}>
       {/* Header */}
@@ -115,12 +122,20 @@ export function JobFilterSidebar({
         <div className="flex items-center justify-between">
           <h2 className={cn(
             "font-heading text-xl font-bold bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent",
-            isCollapsed && "sr-only"
+            !isPanel && isCollapsed && "sr-only"
           )}>
             Filters
           </h2>
           
-          {!isCollapsed && (
+          {isPanel ? (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onClose}
+            >
+              <X className="h-4 w-4" />
+            </Button>
+          ) : !isCollapsed && (
             <Button
               variant="ghost"
               size="sm"
@@ -133,7 +148,7 @@ export function JobFilterSidebar({
         </div>
         
         {/* Active filters */}
-        {activeFilters.length > 0 && !isCollapsed && (
+        {activeFilters.length > 0 && (isPanel || !isCollapsed) && (
           <div className="mt-4 flex flex-wrap gap-2">
             {activeFilters.map((filter) => (
               <FilterChip
@@ -148,8 +163,17 @@ export function JobFilterSidebar({
       </div>
 
       {/* Content */}
-      <div className={cn("p-6 space-y-8", isCollapsed && "p-2")}>
-        {!isCollapsed ? (
+      <div className={cn("p-6 space-y-8", !isPanel && isCollapsed && "p-2")}>
+        {!isPanel && isCollapsed ? (
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setIsCollapsed(false)}
+            className="w-full h-16 mx-auto"
+          >
+            <ChevronRight className="h-5 w-5" />
+          </Button>
+        ) : (
           <>
             {/* Location search */}
             <div>
@@ -228,15 +252,6 @@ export function JobFilterSidebar({
               Clear all filters
             </Button>
           </>
-        ) : (
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setIsCollapsed(false)}
-            className="w-full h-16 mx-auto"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </Button>
         )}
       </div>
     </div>

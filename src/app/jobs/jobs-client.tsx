@@ -8,6 +8,7 @@ import { JobCard, type JobCardProps } from "@/components/ui/job-card"
 import { SearchInput } from "@/components/ui/search-input"
 import { NoJobsFound } from "@/components/shared/empty-state"
 import { Button } from "@/components/ui/button"
+import { FilterChip } from "@/components/ui/filter-chip"
 import { cn } from "@/lib/utils"
 
 interface ApiJob {
@@ -72,6 +73,7 @@ export function JobsClient() {
   const [locationSearch, setLocationSearch] = React.useState("")
   const [page, setPage] = React.useState(1)
   const [total, setTotal] = React.useState(0)
+  const [filtersOpen, setFiltersOpen] = React.useState(false)
   const pageSize = 10
 
   const selectedType = React.useMemo(() => {
@@ -168,7 +170,7 @@ export function JobsClient() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50/60">
+    <div className="min-h-screen bg-background">
       <div className="flex">
         <JobFilterSidebar
           filters={filters}
@@ -179,26 +181,64 @@ export function JobsClient() {
         />
 
         <div className="flex-1">
-          {/* Header */}
-          <div className="border-b bg-white">
-            <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <h1 className="text-2xl font-bold text-slate-900">Browse Jobs</h1>
-                <p className="mt-1 text-sm text-slate-500">
-                  {total > 0 ? `${total.toLocaleString()} opportunities available` : "Find the right role for you"}
-                </p>
+          <section className="border-b bg-gradient-to-r from-brand-50/70 via-background to-amber-50/40">
+            <div className="container-app flex flex-col gap-6 py-8">
+              <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                <div>
+                  <p className="text-xs font-semibold uppercase tracking-widest text-brand-600">
+                    HireHub Jobs
+                  </p>
+                  <h1 className="mt-2 text-3xl font-semibold text-foreground">
+                    Browse jobs built for you
+                  </h1>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {total > 0
+                      ? `${total.toLocaleString()} opportunities available`
+                      : "Find the right role for your next move"}
+                  </p>
+                </div>
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+                  <SearchInput
+                    value={query}
+                    onChange={(event) => setQuery(event.target.value)}
+                    onClear={() => setQuery("")}
+                    placeholder="Search jobs, companies..."
+                    variant="compact"
+                  />
+                  <Button
+                    variant="outline"
+                    className="lg:hidden"
+                    onClick={() => setFiltersOpen(true)}
+                  >
+                    Filters
+                  </Button>
+                </div>
               </div>
-              <SearchInput
-                value={query}
-                onChange={(event) => setQuery(event.target.value)}
-                onClear={() => setQuery("")}
-                placeholder="Search jobs, companies..."
-              />
-            </div>
-          </div>
 
-          {/* Content */}
-          <div className="mx-auto max-w-6xl px-4 py-8">
+              {activeFilters.length > 0 && (
+                <div className="flex flex-wrap items-center gap-2">
+                  <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                    Active filters
+                  </span>
+                  {activeFilters.map((filter) => (
+                    <FilterChip
+                      key={filter}
+                      label={filter.replace(":", ": ").replace(/_/g, " ")}
+                      removable
+                      onRemove={() =>
+                        handleFilterChange(activeFilters.filter((item) => item !== filter))
+                      }
+                    />
+                  ))}
+                  <Button variant="ghost" size="sm" onClick={handleClearFilters}>
+                    Clear
+                  </Button>
+                </div>
+              )}
+            </div>
+          </section>
+
+          <div className="container-app py-8">
             {error && (
               <div className="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
                 {error}
@@ -207,7 +247,7 @@ export function JobsClient() {
 
             {isLoading && jobs.length === 0 ? (
               <div className="flex min-h-[240px] items-center justify-center">
-                <Loader2 className="h-6 w-6 animate-spin text-slate-400" />
+                <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
               </div>
             ) : jobs.length === 0 ? (
               <NoJobsFound onClearFilters={handleClearFilters} />
@@ -234,6 +274,28 @@ export function JobsClient() {
           </div>
         </div>
       </div>
+
+      {filtersOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/30 lg:hidden"
+          onClick={() => setFiltersOpen(false)}
+        >
+          <div
+            className="absolute inset-y-0 left-0 w-full max-w-sm bg-background shadow-xl"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <JobFilterSidebar
+              filters={filters}
+              activeFilters={activeFilters}
+              onFilterChange={handleFilterChange}
+              onLocationSearch={setLocationSearch}
+              mode="panel"
+              onClose={() => setFiltersOpen(false)}
+              className="h-full"
+            />
+          </div>
+        </div>
+      )}
     </div>
   )
 }
