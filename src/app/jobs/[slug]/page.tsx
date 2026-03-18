@@ -2,6 +2,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Metadata } from "next"
 
+import { Container } from "@/components/layout/container"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -9,11 +10,14 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
+  CardDescription,
 } from "@/components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 
 import { SaveJobButton } from "./save-button"
+import { MapPin, DollarSign, Clock, Calendar, Users, Award, Share2 } from "lucide-react"
 
 interface JobDetailsPageProps {
   params: Promise<{
