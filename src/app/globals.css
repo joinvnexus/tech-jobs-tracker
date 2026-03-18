@@ -1,19 +1,31 @@
 ﻿@import "tailwindcss";
+
 :root {
-  --bg: 248 250 252;
-  --bg-elev: 255 255 255;
-  --fg: 15 23 42;
-  --muted: 100 116 139;
-  --border: 226 232 240;
+  --background: 210 40% 98%;
+  --foreground: 222 47% 11%;
+  --muted: 215 16% 47%;
+  --muted-foreground: 215 20% 35%;
+  --border: 214 32% 91%;
+  --input: 214 32% 91%;
+  --ring: 187 60% 36%;
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 11%;
+  --primary: 187 60% 36%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 210 40% 96%;
+  --secondary-foreground: 222 47% 11%;
+  --accent: 43 96% 56%;
+  --accent-foreground: 222 47% 11%;
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
 
-  --brand: 14 116 144;
-  --brand-strong: 8 47 73;
-  --accent: 245 158 11;
-  --success: 16 185 129;
-  --warning: 234 88 12;
-  --danger: 239 68 68;
-
-  --ring: 14 116 144;
+  --brand: 187 60% 36%;
+  --brand-strong: 196 83% 18%;
+  --success: 160 84% 39%;
+  --warning: 24 95% 53%;
+  --danger: 0 84% 60%;
 
   --radius-xs: 0.375rem;
   --radius-sm: 0.5rem;
@@ -21,43 +33,54 @@
   --radius-lg: 1rem;
   --radius-xl: 1.5rem;
 
-  --shadow-xs: 0 1px 2px rgb(15 23 42 / 0.08);
-  --shadow-sm: 0 6px 20px rgb(15 23 42 / 0.08);
-  --shadow-md: 0 12px 30px rgb(15 23 42 / 0.12);
+  --shadow-xs: 0 1px 2px hsl(222 47% 11% / 0.08);
+  --shadow-sm: 0 6px 20px hsl(222 47% 11% / 0.08);
+  --shadow-md: 0 12px 30px hsl(222 47% 11% / 0.12);
 }
 
 .dark {
-  --bg: 10 14 23;
-  --bg-elev: 15 23 42;
-  --fg: 226 232 240;
-  --muted: 148 163 184;
-  --border: 51 65 85;
+  --background: 222 47% 7%;
+  --foreground: 210 40% 98%;
+  --muted: 215 16% 55%;
+  --muted-foreground: 215 20% 65%;
+  --border: 215 25% 22%;
+  --input: 215 25% 22%;
+  --ring: 186 100% 42%;
+  --card: 222 47% 10%;
+  --card-foreground: 210 40% 98%;
+  --popover: 222 47% 10%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 186 100% 42%;
+  --primary-foreground: 222 47% 11%;
+  --secondary: 215 25% 16%;
+  --secondary-foreground: 210 40% 98%;
+  --accent: 43 96% 56%;
+  --accent-foreground: 222 47% 11%;
+  --destructive: 0 70% 54%;
+  --destructive-foreground: 210 40% 98%;
 
-  --brand: 34 211 238;
-  --brand-strong: 14 116 144;
-  --accent: 251 191 36;
-  --success: 52 211 153;
-  --warning: 251 146 60;
-  --danger: 248 113 113;
-
-  --ring: 34 211 238;
+  --brand: 186 100% 42%;
+  --brand-strong: 187 60% 36%;
+  --success: 160 84% 45%;
+  --warning: 24 95% 53%;
+  --danger: 0 70% 54%;
 }
 
 @layer base {
   * {
-    border-color: rgb(var(--border));
+    border-color: hsl(var(--border));
   }
 
   html {
-    font-family: var(--font-body);
-    background-color: rgb(var(--bg));
-    color: rgb(var(--fg));
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
     text-rendering: optimizeLegibility;
   }
 
   body {
-    background-color: rgb(var(--bg));
-    color: rgb(var(--fg));
+    font-family: var(--font-body);
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
     min-height: 100vh;
   }
 
@@ -68,7 +91,7 @@
   h5,
   h6 {
     font-family: var(--font-heading);
-    color: rgb(var(--fg));
+    color: hsl(var(--foreground));
     letter-spacing: -0.01em;
   }
 
@@ -82,7 +105,7 @@
   }
 
   ::selection {
-    background: rgb(var(--brand) / 0.2);
+    background: hsl(var(--brand) / 0.2);
   }
 }
 
@@ -95,8 +118,8 @@
   }
 
   .surface {
-    background-color: rgb(var(--bg-elev));
-    border: 1px solid rgb(var(--border));
+    background-color: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-sm);
   }
@@ -105,5 +128,18 @@
     font-family: var(--font-heading);
     font-weight: 600;
     letter-spacing: -0.01em;
+  }
+
+  .border-gradient-brand {
+    border: 1px solid transparent;
+    background:
+      linear-gradient(hsl(var(--card)), hsl(var(--card))) padding-box,
+      linear-gradient(135deg, hsl(var(--brand) / 0.35), hsl(var(--brand-strong) / 0.6)) border-box;
+  }
+
+  .shadow-glow-brand {
+    box-shadow:
+      0 10px 30px hsl(var(--brand) / 0.35),
+      0 0 0 1px hsl(var(--brand) / 0.2);
   }
 }

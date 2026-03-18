@@ -1,1 +1,25 @@
-# Job Pages Complete Redesign & Fullscreen Fix\n\n## ✅ Phase 1: Layout & Fullscreen Fix\n- [x] Create this TODO.md\n- [ ] src/app/jobs/page.tsx → Container size="full" + modern UI with JobFilterSidebar\n- [ ] src/app/jobs/[slug]/page.tsx → Container size="full" + responsive detail layout\n- [ ] Optimize Container component\n\n## ⏳ Phase 2: UI/UX Modern Redesign\n- [ ] Interactive real-time filters + animations\n- [ ] Enhanced JobCards with hover states\n- [ ] Sticky CTA sidebar on job detail\n\n## ⏳ Phase 3: Responsive & Accessibility\n- [ ] Mobile overlay sidebar\n- [ ] Keyboard navigation + ARIA\n- [ ] Loading skeletons\n\n## ⏳ Phase 4: Testing\n- [ ] Test fullscreen on all devices\n- [ ] Verify no horizontal scroll\n\n**Status: Starting Phase 1 → src/app/jobs/page.tsx redesign**
+﻿# Frontend Refactor Todo
+
+- [x] App Shell (layout, header, footer) - Global structure, nav, footer links - Props: children; State: HeaderClient.isMenuOpen - Dependencies: none
+- [x] Design tokens (globals.css + tailwind config) - Colors, typography, spacing, radii, shadows - Props/State: none - Dependencies: none
+- [x] UI Primitives (Button, Input, Card, Badge, Avatar) - Reusable core UI - Props: variant, size, asChild - Dependencies: tokens
+- [ ] Home Page - Hero, featured jobs, categories, CTA - Props: featured jobs list - Dependencies: App Shell, UI Primitives
+- [ ] Jobs Listing Page - Server fetch + client filters - Props: jobs list, filters config - State: filters, sort, page - Dependencies: JobsClient, JobCard
+- [ ] JobsClient - Handles filtering/sorting/pagination - Props: initial data - State: filters, sort, page, viewMode - Dependencies: JobFilterSidebar, JobListToolbar
+- [ ] Job Card - Job summary display - Props: title, company, location, tags, salary, postedAt - Dependencies: UI Card/Badge
+- [ ] Job Filter Sidebar - Search, tags, location, salary range - Props: filter schema - State: selected filters - Dependencies: Select, TagInput
+- [ ] Job Detail Page - Full job view - Props: job details - Dependencies: JobApplyPanel
+- [ ] Job Apply Panel - Application form - Props: jobId, CTA label - State: resume, coverLetter, isSubmitting - Dependencies: Input, Button
+- [ ] Company Directory - List companies - Props: companies list - Dependencies: CompanyCard
+- [ ] Company Profile - Company detail + jobs - Props: company, jobs - Dependencies: CompanyHeader, CompanyJobs
+- [ ] Dashboard Shell - Sidebar + content layout - Props: children - State: SidebarClient isOpen - Dependencies: App Shell
+- [ ] Dashboard Overview - Stats cards, recent activity - Props: stats - Dependencies: StatsCards
+- [ ] Dashboard Jobs - Manage postings table - Props: jobs list - Dependencies: JobsTable
+- [ ] Dashboard Applications - Track applicants - Props: applications - Dependencies: ApplicationsTable
+- [ ] Profile Form - Edit user profile - Props: user data - State: form fields, isSaving - Dependencies: Input, Select
+- [ ] Auth Pages - Sign in/up forms - Props: none - State: form fields, loading - Dependencies: UI Primitives
+- [ ] Pricing Page - Plan tiers - Props: plans - Dependencies: Card, Button
+- [ ] Blog Index + Post - Content layout - Props: post list/content - Dependencies: Card
+- [ ] Contact Page - Contact form - Props: none - State: form fields - Dependencies: Input, Button
+- [ ] Legal Pages - Static content - Props: none - Dependencies: App Shell
+- [ ] Not Found Page - 404 content - Props: none - Dependencies: Button
