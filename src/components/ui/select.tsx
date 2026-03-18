@@ -16,9 +16,9 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         <select
           className={cn(
             // Base styles
-            "flex w-full appearance-none rounded-lg border bg-white text-sm transition-all duration-200",
+            "flex w-full appearance-none rounded-lg border bg-background text-sm transition-all duration-200",
             "focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2",
-            "disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-slate-50",
+            "disabled:cursor-not-allowed disabled:opacity-50 disabled:bg-secondary/60",
             
             // Padding for chevron
             "pr-10",
@@ -33,19 +33,19 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             // Variants
             {
               // Default - bordered
-              "border-slate-200 hover:border-slate-300 focus:border-brand-500": 
+              "border-border hover:border-brand-200 focus:border-brand-500": 
                 variant === "default" && !error,
               
               // Filled - no border, background
-              "border-0 bg-slate-50 hover:bg-slate-100 focus:bg-white focus:ring-brand-500": 
+              "border-0 bg-secondary hover:bg-secondary/80 focus:bg-background focus:ring-brand-500": 
                 variant === "filled" && !error,
               
               // Ghost - transparent
-              "border-0 bg-transparent hover:bg-slate-50 focus:bg-white focus:ring-brand-500": 
+              "border-0 bg-transparent hover:bg-secondary focus:bg-background focus:ring-brand-500": 
                 variant === "ghost" && !error,
               
               // Error state
-              "border-red-300 focus:border-red-500 focus:ring-red-200": error,
+              "border-destructive focus:border-destructive focus:ring-destructive/20": error,
             },
             className
           )}
@@ -54,7 +54,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
         >
           {children}
         </select>
-        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none" />
+        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
       </div>
     )
   }

@@ -11,10 +11,10 @@ interface ToastProps {
 }
 
 const variantClasses = {
-  default: "bg-gray-900 text-white",
-  success: "bg-green-600 text-white",
-  error: "bg-red-600 text-white",
-  warning: "bg-yellow-500 text-white",
+  default: "bg-foreground text-background",
+  success: "bg-success text-background",
+  error: "bg-danger text-background",
+  warning: "bg-warning text-background",
 };
 
 export function Toast({

@@ -1,4 +1,4 @@
-import { notFound, redirect } from "next/navigation";
+﻿import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -23,7 +23,7 @@ export default async function ApplyPage({
 }: ApplyPageProps) {
   const resolvedParams = await params;
   const session = await auth();
-  
+
   if (!session?.user) {
     redirect("/auth/signin?callbackUrl=/jobs");
   }
@@ -54,13 +54,13 @@ export default async function ApplyPage({
 
   if (existingApplication) {
     return (
-      <div className="container mx-auto max-w-4xl py-12">
+      <div className="container-app py-12">
         <Card>
           <CardContent className="flex flex-col items-center justify-center py-12">
             <h2 className="mb-4 text-xl font-semibold">
               You have already applied to this job
             </h2>
-            <p className="mb-6 text-gray-600">
+            <p className="mb-6 text-muted-foreground">
               Check your applications to track the status.
             </p>
             <div className="flex gap-4">
@@ -84,15 +84,15 @@ export default async function ApplyPage({
   };
 
   return (
-    <div className="container mx-auto max-w-4xl py-12">
+    <div className="container-app py-12">
       <div className="mb-8">
         <Button variant="ghost" asChild className="mb-4">
           <Link href={`/jobs/${resolvedParams.slug}`}>
-            ← Back to job details
+            Back to job details
           </Link>
         </Button>
         <h1 className="text-3xl font-bold">Apply for {job.title}</h1>
-        <p className="mt-2 text-gray-600">
+        <p className="mt-2 text-muted-foreground">
           at {job.company?.name || "Company"}
         </p>
       </div>
@@ -112,12 +112,12 @@ export default async function ApplyPage({
                 />
               ) : (
                 <div className="space-y-4">
-                  <p className="text-sm text-gray-600">
+                  <p className="text-sm text-muted-foreground">
                     Please complete your profile and upload a resume before
                     applying.
                   </p>
                   <Button asChild>
-<Link href="/profile/seeker">Complete Profile</Link>
+                    <Link href="/profile/seeker">Complete Profile</Link>
                   </Button>
                 </div>
               )}
@@ -133,11 +133,15 @@ export default async function ApplyPage({
             <CardContent className="space-y-4">
               <div>
                 <p className="text-sm font-medium">Name</p>
-                <p className="text-sm text-gray-600">{session.user.name}</p>
+                <p className="text-sm text-muted-foreground">
+                  {session.user.name}
+                </p>
               </div>
               <div>
                 <p className="text-sm font-medium">Email</p>
-                <p className="text-sm text-gray-600">{session.user.email}</p>
+                <p className="text-sm text-muted-foreground">
+                  {session.user.email}
+                </p>
               </div>
               {profile?.resumeUrl && (
                 <div>
@@ -154,7 +158,7 @@ export default async function ApplyPage({
                 </div>
               )}
               <Button variant="outline" className="w-full" asChild>
-<Link href="/profile/seeker">Edit Profile</Link>
+                <Link href="/profile/seeker">Edit Profile</Link>
               </Button>
             </CardContent>
           </Card>

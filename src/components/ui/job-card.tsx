@@ -68,7 +68,7 @@ export function JobCard({
         "group/job relative overflow-hidden transition-all duration-300",
         "hover:shadow-lg hover:-translate-y-1 hover:border-brand-200",
         // Featured variant has accent border
-        isFeatured ? "border-l-4 border-l-amber-500" : "border-border",
+        isFeatured ? "border-l-4 border-l-warning" : "border-border",
         // Compact variant
         isCompact ? "p-4" : "p-5",
         className
@@ -77,7 +77,7 @@ export function JobCard({
       {/* Featured badge */}
       {job.featured && (
         <div className="absolute top-0 right-0">
-          <Badge className="rounded-tl-lg rounded-br-lg rounded-tr-none bg-amber-500 hover:bg-amber-600">
+          <Badge className="rounded-tl-lg rounded-br-lg rounded-tr-none bg-warning/15 text-warning hover:bg-warning/20">
             Featured
           </Badge>
         </div>
@@ -130,7 +130,7 @@ export function JobCard({
                 {job.location}
               </span>
               {job.salaryRange && (
-                <span className="text-emerald-600 font-medium">
+                <span className="text-success font-medium">
                   {job.salaryRange}
                 </span>
               )}
@@ -146,7 +146,7 @@ export function JobCard({
                 {job.location}
               </span>
               {job.salaryRange && (
-                <span className="flex items-center gap-1.5 text-emerald-600 font-medium">
+                <span className="flex items-center gap-1.5 text-success font-medium">
                   <DollarSign className="w-4 h-4" />
                   {job.salaryRange}
                 </span>

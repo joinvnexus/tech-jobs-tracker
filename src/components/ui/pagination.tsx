@@ -68,10 +68,10 @@ export function Pagination({
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
         className={cn(
-          "flex h-10 w-10 items-center justify-center rounded-md border transition-colors",
+          "flex h-10 w-10 items-center justify-center rounded-md border border-border transition-colors",
           currentPage === 1
             ? "cursor-not-allowed opacity-50"
-            : "hover:bg-gray-100"
+            : "hover:bg-secondary"
         )}
         aria-label="Previous page"
       >
@@ -98,8 +98,8 @@ export function Pagination({
             className={cn(
               "flex h-10 w-10 items-center justify-center rounded-md text-sm font-medium transition-colors",
               page === currentPage
-                ? "bg-primary text-white"
-                : "hover:bg-gray-100"
+                ? "bg-primary text-primary-foreground"
+                : "hover:bg-secondary"
             )}
             aria-label={`Page ${page}`}
             aria-current={page === currentPage ? "page" : undefined}
@@ -114,10 +114,10 @@ export function Pagination({
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
         className={cn(
-          "flex h-10 w-10 items-center justify-center rounded-md border transition-colors",
+          "flex h-10 w-10 items-center justify-center rounded-md border border-border transition-colors",
           currentPage === totalPages
             ? "cursor-not-allowed opacity-50"
-            : "hover:bg-gray-100"
+            : "hover:bg-secondary"
         )}
         aria-label="Next page"
       >
@@ -150,14 +150,14 @@ export function SimplePagination({
           "flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors",
           currentPage === 1
             ? "cursor-not-allowed opacity-50"
-            : "hover:bg-gray-100"
+            : "hover:bg-secondary"
         )}
       >
         <ChevronLeft className="h-4 w-4" />
         Previous
       </button>
 
-      <span className="text-sm text-gray-600">
+      <span className="text-sm text-muted-foreground">
         Page {currentPage} of {totalPages}
       </span>
 
@@ -168,7 +168,7 @@ export function SimplePagination({
           "flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors",
           currentPage === totalPages
             ? "cursor-not-allowed opacity-50"
-            : "hover:bg-gray-100"
+            : "hover:bg-secondary"
         )}
       >
         Next

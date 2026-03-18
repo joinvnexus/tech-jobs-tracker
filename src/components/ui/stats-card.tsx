@@ -35,10 +35,10 @@ const StatsCard = React.forwardRef<HTMLDivElement, StatsCardProps>(
           "group relative overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1",
           "border-0 bg-gradient-to-br",
           {
-            "from-brand-50 to-blue-50 border-gradient-brand": variant === "default",
-            "from-seeker-50 to-teal-50 border-gradient-seeker": variant === "seeker",
-            "from-employer-50 to-purple-50 border-gradient-employer": variant === "employer", 
-            "from-admin-50 to-orange-50 border-gradient-admin": variant === "admin",
+            "from-brand-50 to-secondary/70 border-gradient-brand": variant === "default",
+            "from-seeker-50 to-secondary/70 border-gradient-seeker": variant === "seeker",
+            "from-employer-50 to-secondary/70 border-gradient-employer": variant === "employer", 
+            "from-admin-50 to-secondary/70 border-gradient-admin": variant === "admin",
             "from-brand-500/5 to-brand-500/10 backdrop-blur-sm border-brand-500/20": variant === "gradient"
           },
           className
@@ -46,7 +46,7 @@ const StatsCard = React.forwardRef<HTMLDivElement, StatsCardProps>(
       >
         <CardHeader className="pb-4 pt-6">
           <div className={cn(
-            "absolute -right-4 top-4 h-16 w-16 rounded-2xl p-3 shadow-glow opacity-80 group-hover:opacity-100 transition-all",
+            "absolute -right-4 top-4 h-16 w-16 rounded-2xl p-3 opacity-80 group-hover:opacity-100 transition-all",
             {
               "bg-brand-500 text-white shadow-glow-brand": variant === "default" || variant === "gradient",
               "bg-seeker-500 text-white shadow-glow-seeker": variant === "seeker",
@@ -70,15 +70,15 @@ const StatsCard = React.forwardRef<HTMLDivElement, StatsCardProps>(
           <CardContent className="pt-0 pb-6">
             <div className="flex items-center gap-1.5">
               {trend === "up" ? (
-                <TrendingUp className="h-4 w-4 text-green-500" />
+                <TrendingUp className="h-4 w-4 text-success" />
               ) : trend === "down" ? (
-                <TrendingUp className="h-4 w-4 text-red-500 rotate-180" />
+                <TrendingUp className="h-4 w-4 text-danger rotate-180" />
               ) : (
                 <span className="h-4 w-4 rounded-full bg-muted" />
               )}
               <span className={cn(
                 "text-sm font-semibold",
-                change.positive ? "text-green-600" : "text-red-600"
+                change.positive ? "text-success" : "text-danger"
               )}>
                 {change.positive ? "+" : ""}{change.value}%
               </span>

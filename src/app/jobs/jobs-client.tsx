@@ -181,7 +181,7 @@ export function JobsClient() {
         />
 
         <div className="flex-1">
-          <section className="border-b bg-gradient-to-r from-brand-50/70 via-background to-amber-50/40">
+          <section className="border-b bg-gradient-to-r from-brand-50/70 via-background to-accent/10">
             <div className="container-app flex flex-col gap-6 py-8">
               <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                 <div>
@@ -240,7 +240,7 @@ export function JobsClient() {
 
           <div className="container-app py-8">
             {error && (
-              <div className="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
+              <div className="mb-6 rounded-lg border border-danger/20 bg-danger/10 px-4 py-3 text-sm text-danger">
                 {error}
               </div>
             )}

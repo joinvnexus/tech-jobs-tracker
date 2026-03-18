@@ -1,8 +1,7 @@
-import Link from "next/link"
+﻿import Link from "next/link"
 import { notFound } from "next/navigation"
 import { Metadata } from "next"
 
-import { Container } from "@/components/layout/container"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -10,14 +9,11 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { auth } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 
 import { SaveJobButton } from "./save-button"
-import { MapPin, DollarSign, Clock, Calendar, Users, Award, Share2 } from "lucide-react"
 
 interface JobDetailsPageProps {
   params: Promise<{
@@ -76,7 +72,7 @@ export default async function JobDetailsPage({
   }
 
   return (
-    <div className="container py-10">
+    <div className="container-app py-10">
       <div className="grid gap-8 md:grid-cols-[2fr,1fr]">
         <div className="space-y-6">
           <div>
@@ -86,8 +82,8 @@ export default async function JobDetailsPage({
             <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">
               {job.title}
             </h1>
-            <p className="mt-2 text-sm text-slate-600">
-              {job.company?.name} • {job.location}
+            <p className="mt-2 text-sm text-muted-foreground">
+              {job.company?.name} - {job.location}
             </p>
           </div>
 
@@ -95,30 +91,30 @@ export default async function JobDetailsPage({
             <CardHeader className="space-y-1">
               <CardTitle className="text-base">Job overview</CardTitle>
             </CardHeader>
-            <CardContent className="grid gap-3 text-sm text-slate-700 md:grid-cols-2">
+            <CardContent className="grid gap-3 text-sm text-foreground/80 md:grid-cols-2">
               {job.salaryRange ? (
                 <div>
-                  <p className="text-xs text-slate-500">Salary range</p>
-                  <p className="font-medium text-emerald-600">
+                  <p className="text-xs text-muted-foreground">Salary range</p>
+                  <p className="font-medium text-success">
                     {job.salaryRange}
                   </p>
                 </div>
               ) : null}
               {job.experienceLevel ? (
                 <div>
-                  <p className="text-xs text-slate-500">Experience level</p>
+                  <p className="text-xs text-muted-foreground">Experience level</p>
                   <p className="font-medium">{job.experienceLevel}</p>
                 </div>
               ) : null}
               <div>
-                <p className="text-xs text-slate-500">Posted on</p>
+                <p className="text-xs text-muted-foreground">Posted on</p>
                 <p className="font-medium">
                   {job.createdAt.toLocaleDateString()}
                 </p>
               </div>
               {job.expiresAt ? (
                 <div>
-                  <p className="text-xs text-slate-500">Expires on</p>
+                  <p className="text-xs text-muted-foreground">Expires on</p>
                   <p className="font-medium">
                     {job.expiresAt.toLocaleDateString()}
                   </p>
@@ -131,7 +127,7 @@ export default async function JobDetailsPage({
             <CardHeader>
               <CardTitle className="text-base">Job description</CardTitle>
             </CardHeader>
-            <CardContent className="prose prose-sm max-w-none text-slate-800">
+            <CardContent className="prose prose-sm max-w-none text-foreground">
               <p className="whitespace-pre-line">{job.description}</p>
             </CardContent>
           </Card>
@@ -142,7 +138,7 @@ export default async function JobDetailsPage({
                 <CardTitle className="text-base">Responsibilities</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="whitespace-pre-line text-sm text-slate-700">
+                <p className="whitespace-pre-line text-sm text-foreground/80">
                   {job.responsibilities}
                 </p>
               </CardContent>
@@ -155,7 +151,7 @@ export default async function JobDetailsPage({
                 <CardTitle className="text-base">Requirements</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="whitespace-pre-line text-sm text-slate-700">
+                <p className="whitespace-pre-line text-sm text-foreground/80">
                   {job.requirements}
                 </p>
               </CardContent>
@@ -183,7 +179,7 @@ export default async function JobDetailsPage({
             <CardHeader>
               <CardTitle className="text-base">Apply for this job</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-3 text-sm text-slate-700">
+            <CardContent className="space-y-3 text-sm text-foreground/80">
               <p>
                 You&apos;ll be able to attach your resume and add a tailored
                 cover letter in the next step.
@@ -209,10 +205,10 @@ export default async function JobDetailsPage({
                   About {job.company.name}
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-2 text-sm text-slate-700">
+              <CardContent className="space-y-2 text-sm text-foreground/80">
                 {job.company.location ? (
                   <p>
-                    <span className="text-xs text-slate-500">Location</span>
+                    <span className="text-xs text-muted-foreground">Location</span>
                     <br />
                     <span className="font-medium">
                       {job.company.location}
@@ -221,7 +217,7 @@ export default async function JobDetailsPage({
                 ) : null}
                 {job.company.website ? (
                   <p>
-                    <span className="text-xs text-slate-500">Website</span>
+                    <span className="text-xs text-muted-foreground">Website</span>
                     <br />
                     <a
                       href={job.company.website}

@@ -21,7 +21,7 @@ export function TopCompaniesSection({
   ],
 }: TopCompaniesSectionProps) {
   return (
-    <section className="border-b bg-slate-50 py-14">
+    <section className="border-b bg-secondary/50 py-14">
       <div className="container-app space-y-8">
         <div className="flex flex-col items-start justify-between gap-4 md:flex-row md:items-end">
           <div>
@@ -39,7 +39,7 @@ export function TopCompaniesSection({
           {companies.map((company) => (
             <Card
               key={company.name}
-              className="flex flex-col justify-between border-slate-100 bg-white/85 p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
+              className="flex flex-col justify-between border-border/60 bg-card/85 p-4 shadow-sm transition hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
             >
               <CardHeader className="space-y-1 pb-2">
                 <CardTitle className="text-base">

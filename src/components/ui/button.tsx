@@ -17,7 +17,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         className={cn(
           // Base styles
           "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-all duration-200",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
           "disabled:pointer-events-none disabled:opacity-50",
           "active:scale-[0.98]",
           
@@ -32,11 +32,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           // Variants
           {
             // Default - Brand Blue
-            "bg-brand-500 text-white hover:bg-brand-600 hover:shadow-md focus-visible:ring-brand-500":
+            "bg-brand-500 text-white hover:bg-brand-600 hover:shadow-md focus-visible:ring-ring":
               variant === "default",
             
             // Secondary - Gray
-            "bg-slate-100 text-slate-900 hover:bg-slate-200":
+            "bg-secondary text-secondary-foreground hover:bg-secondary/80":
               variant === "secondary",
             
             // Outline
@@ -44,11 +44,11 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               variant === "outline",
             
             // Ghost
-            "hover:bg-slate-100 hover:text-slate-900": 
+            "hover:bg-secondary hover:text-foreground": 
               variant === "ghost",
             
             // Destructive - Red
-            "bg-red-500 text-white hover:bg-red-600 focus-visible:ring-red-500":
+            "bg-destructive text-destructive-foreground hover:bg-destructive/90 focus-visible:ring-destructive":
               variant === "destructive",
             
             // Link
