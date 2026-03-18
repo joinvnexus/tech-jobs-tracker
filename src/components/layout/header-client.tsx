@@ -2,11 +2,23 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X, ChevronDown, LogOut, User, Briefcase, Users, Building2, Settings, LayoutDashboard, Bell, Bookmark } from "lucide-react";
+import {
+  Menu,
+  X,
+  ChevronDown,
+  LogOut,
+  User,
+  Briefcase,
+  Users,
+  Building2,
+  Settings,
+  LayoutDashboard,
+  Bookmark,
+} from "lucide-react";
 import { Session } from "next-auth";
 import { handleSignOut } from "@/components/layout/navbar-actions";
 
-interface NavbarProps {
+interface HeaderClientProps {
   session: Session | null;
 }
 
@@ -35,7 +47,7 @@ const ROLE_DROPDOWN = {
   ],
 };
 
-export default function NavbarClient({ session }: NavbarProps) {
+export default function HeaderClient({ session }: HeaderClientProps) {
   const userRole = session?.user?.role as
     | "ADMIN"
     | "EMPLOYER"

@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { BriefcaseBusiness, Github, Twitter, Linkedin, Mail } from "lucide-react";
 
 const footerLinks = {
@@ -38,10 +38,8 @@ const socialLinks = [
 export function Footer() {
   return (
     <footer className="border-t border-slate-200 bg-slate-50">
-      {/* Main Footer */}
       <div className="container mx-auto max-w-7xl px-4 py-12">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-6">
-          {/* Brand Section */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-2 mb-4">
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-brand-500 to-brand-600 text-white">
@@ -71,7 +69,6 @@ export function Footer() {
             </div>
           </div>
 
-          {/* For Job Seekers */}
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-900">
               For Job Seekers
@@ -79,8 +76,8 @@ export function Footer() {
             <ul className="space-y-2.5">
               {footerLinks.forJobSeekers.map((link) => (
                 <li key={link.href}>
-                  <Link 
-                    href={link.href} 
+                  <Link
+                    href={link.href}
                     className="text-sm text-slate-600 transition-colors hover:text-brand-600"
                   >
                     {link.label}
@@ -90,7 +87,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* For Employers */}
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-900">
               For Employers
@@ -98,8 +94,8 @@ export function Footer() {
             <ul className="space-y-2.5">
               {footerLinks.forEmployers.map((link) => (
                 <li key={link.href}>
-                  <Link 
-                    href={link.href} 
+                  <Link
+                    href={link.href}
                     className="text-sm text-slate-600 transition-colors hover:text-brand-600"
                   >
                     {link.label}
@@ -109,7 +105,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Company */}
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-900">
               Company
@@ -117,8 +112,8 @@ export function Footer() {
             <ul className="space-y-2.5">
               {footerLinks.company.map((link) => (
                 <li key={link.href}>
-                  <Link 
-                    href={link.href} 
+                  <Link
+                    href={link.href}
                     className="text-sm text-slate-600 transition-colors hover:text-brand-600"
                   >
                     {link.label}
@@ -128,7 +123,6 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Legal */}
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-900">
               Legal
@@ -136,8 +130,8 @@ export function Footer() {
             <ul className="space-y-2.5">
               {footerLinks.legal.map((link) => (
                 <li key={link.href}>
-                  <Link 
-                    href={link.href} 
+                  <Link
+                    href={link.href}
                     className="text-sm text-slate-600 transition-colors hover:text-brand-600"
                   >
                     {link.label}
@@ -149,16 +143,13 @@ export function Footer() {
         </div>
       </div>
 
-      {/* Bottom Bar */}
       <div className="border-t border-slate-200 bg-white">
         <div className="container mx-auto max-w-7xl px-4 py-4">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
             <p className="text-sm text-slate-500">
-              © {new Date().getFullYear()} HireHub. All rights reserved.
+              (c) {new Date().getFullYear()} HireHub. All rights reserved.
             </p>
-            <p className="text-sm text-slate-500">
-              Made with ❤️ in Bangladesh
-            </p>
+            <p className="text-sm text-slate-500">Made with love in Bangladesh</p>
           </div>
         </div>
       </div>

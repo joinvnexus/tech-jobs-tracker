@@ -1,20 +1,19 @@
-import type { Metadata } from "next";
-import { Inter, Plus_Jakarta_Sans } from "next/font/google";
+﻿import type { Metadata } from "next";
+import { Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
 
 import "./globals.css";
 
 import { auth } from "@/lib/auth";
-import NavbarClient from "@/components/layout/navbar";
-import { Footer } from "@/components/layout/footer";
+import AppShell from "@/components/layout/app-shell";
 import { AuthProvider } from "@/providers/auth-provider";
 
-const inter = Inter({
-  variable: "--font-inter",
+const bodyFont = Plus_Jakarta_Sans({
+  variable: "--font-body",
   subsets: ["latin"],
   display: "swap",
 });
 
-const plusJakarta = Plus_Jakarta_Sans({
+const headingFont = Space_Grotesk({
   variable: "--font-heading",
   subsets: ["latin"],
   display: "swap",
@@ -22,7 +21,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "HireHub – Find Your Dream Job",
+    default: "HireHub - Find Your Dream Job",
     template: "%s | HireHub",
   },
   description:
@@ -34,29 +33,13 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-
   const session = await auth();
 
   return (
     <html lang="en" className="scroll-smooth">
-      <body
-        className={`${inter.variable} ${plusJakarta.variable} bg-background text-foreground antialiased`}
-      >
+      <body className={`${bodyFont.variable} ${headingFont.variable} antialiased`}>
         <AuthProvider>
-          <div className="flex min-h-screen flex-col">
-
-            {/* Navbar */}
-            <NavbarClient session={session} />
-
-            {/* Page Content */}
-            <main className="flex-1">
-              {children}
-            </main>
-
-            {/* Footer */}
-            <Footer />
-
-          </div>
+          <AppShell session={session}>{children}</AppShell>
         </AuthProvider>
       </body>
     </html>
