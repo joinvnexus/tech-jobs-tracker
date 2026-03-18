@@ -20,7 +20,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { UploadButton } from "@/lib/uploadthing"
 
-import { type ProfileFormState, updateProfileAction } from "./actions"
+import { type ProfileFormState, updateProfileAction } from "./seeker/actions"
 
 const initialState: ProfileFormState = {}
 

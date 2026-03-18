@@ -311,7 +311,7 @@ export default async function JobsPage({
               Complete your profile and upload your resume to stand out to employers and get more interview requests.
             </p>
             <Button asChild size="lg" className="bg-white text-brand-600 hover:bg-brand-50">
-              <Link href="/profile">
+<Link href="/profile/seeker">
                 Complete Your Profile
               </Link>
             </Button>

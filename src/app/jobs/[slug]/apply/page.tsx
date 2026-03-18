@@ -117,7 +117,7 @@ export default async function ApplyPage({
                     applying.
                   </p>
                   <Button asChild>
-                    <Link href="/profile">Complete Profile</Link>
+<Link href="/profile/seeker">Complete Profile</Link>
                   </Button>
                 </div>
               )}
@@ -154,7 +154,7 @@ export default async function ApplyPage({
                 </div>
               )}
               <Button variant="outline" className="w-full" asChild>
-                <Link href="/profile">Edit Profile</Link>
+<Link href="/profile/seeker">Edit Profile</Link>
               </Button>
             </CardContent>
           </Card>

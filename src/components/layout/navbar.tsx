@@ -210,8 +210,8 @@ export default function NavbarClient({ session }: NavbarProps) {
                   <div className="border-t border-slate-100 my-1"></div>
 
                   <div className="py-2">
-                    <Link
-                      href="/profile"
+  <Link
+                      href={`/profile/${userRole?.toLowerCase()}`}
                       className={dropdownItem}
                       onClick={() => setProfileOpen(false)}
                     >

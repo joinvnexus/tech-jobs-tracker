@@ -336,7 +336,7 @@ export default async function JobSeekerDashboard() {
                   </div>
                   {!stats.profileComplete && (
                     <Button asChild variant="seeker" size="sm" className="w-full">
-                      <Link href="/profile">Complete Profile</Link>
+<Link href="/profile/seeker">Complete Profile</Link>
                     </Button>
                   )}
                 </div>
@@ -389,7 +389,7 @@ export default async function JobSeekerDashboard() {
                   Jobs with complete profiles get 3x more views from employers.
                 </p>
                 <Button asChild size="sm" className="w-full bg-white text-brand-600 hover:bg-brand-50">
-                  <Link href="/profile">Update Profile</Link>
+<Link href="/profile/seeker">Update Profile</Link>
                 </Button>
               </CardContent>
             </Card>
