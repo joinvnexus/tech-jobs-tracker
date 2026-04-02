@@ -71,7 +71,7 @@ export function Pagination({
           "flex h-10 w-10 items-center justify-center rounded-md border border-border transition-colors",
           currentPage === 1
             ? "cursor-not-allowed opacity-50"
-            : "hover:bg-secondary"
+            : "hover:bg-accent/10"
         )}
         aria-label="Previous page"
       >
@@ -99,7 +99,7 @@ export function Pagination({
               "flex h-10 w-10 items-center justify-center rounded-md text-sm font-medium transition-colors",
               page === currentPage
                 ? "bg-primary text-primary-foreground"
-                : "hover:bg-secondary"
+                : "hover:bg-accent/10"
             )}
             aria-label={`Page ${page}`}
             aria-current={page === currentPage ? "page" : undefined}
@@ -117,7 +117,7 @@ export function Pagination({
           "flex h-10 w-10 items-center justify-center rounded-md border border-border transition-colors",
           currentPage === totalPages
             ? "cursor-not-allowed opacity-50"
-            : "hover:bg-secondary"
+            : "hover:bg-accent/10"
         )}
         aria-label="Next page"
       >
@@ -150,7 +150,7 @@ export function SimplePagination({
           "flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors",
           currentPage === 1
             ? "cursor-not-allowed opacity-50"
-            : "hover:bg-secondary"
+            : "hover:bg-accent/10"
         )}
       >
         <ChevronLeft className="h-4 w-4" />
@@ -168,7 +168,7 @@ export function SimplePagination({
           "flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium transition-colors",
           currentPage === totalPages
             ? "cursor-not-allowed opacity-50"
-            : "hover:bg-secondary"
+            : "hover:bg-accent/10"
         )}
       >
         Next

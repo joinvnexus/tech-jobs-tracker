@@ -1,25 +1,68 @@
-﻿# Frontend Refactor Todo
+﻿# HireHub Modern UI Redesign - TODO
 
-- [x] App Shell (layout, header, footer) - Global structure, nav, footer links - Props: children; State: HeaderClient.isMenuOpen - Dependencies: none
-- [x] Design tokens (globals.css + tailwind config) - Colors, typography, spacing, radii, shadows - Props/State: none - Dependencies: none
-- [x] UI Primitives (Button, Input, Card, Badge, Avatar) - Reusable core UI - Props: variant, size, asChild - Dependencies: tokens
-- [x] Home Page - Hero, featured jobs, categories, CTA - Props: featured jobs list - Dependencies: App Shell, UI Primitives
-- [x] Jobs Listing Page - Server fetch + client filters - Props: jobs list, filters config - State: filters, sort, page - Dependencies: JobsClient, JobCard
-- [x] JobsClient - Handles filtering/sorting/pagination - Props: initial data - State: filters, sort, page, viewMode - Dependencies: JobFilterSidebar, JobListToolbar
-- [x] Job Card - Job summary display - Props: title, company, location, tags, salary, postedAt - Dependencies: UI Card/Badge
-- [x] Job Filter Sidebar - Search, tags, location, salary range - Props: filter schema - State: selected filters - Dependencies: Select, TagInput
-- [ ] Job Detail Page - Full job view - Props: job details - Dependencies: JobApplyPanel
-- [ ] Job Apply Panel - Application form - Props: jobId, CTA label - State: resume, coverLetter, isSubmitting - Dependencies: Input, Button
-- [ ] Company Directory - List companies - Props: companies list - Dependencies: CompanyCard
-- [ ] Company Profile - Company detail + jobs - Props: company, jobs - Dependencies: CompanyHeader, CompanyJobs
-- [ ] Dashboard Shell - Sidebar + content layout - Props: children - State: SidebarClient isOpen - Dependencies: App Shell
-- [ ] Dashboard Overview - Stats cards, recent activity - Props: stats - Dependencies: StatsCards
-- [ ] Dashboard Jobs - Manage postings table - Props: jobs list - Dependencies: JobsTable
-- [ ] Dashboard Applications - Track applicants - Props: applications - Dependencies: ApplicationsTable
-- [ ] Profile Form - Edit user profile - Props: user data - State: form fields, isSaving - Dependencies: Input, Select
-- [ ] Auth Pages - Sign in/up forms - Props: none - State: form fields, loading - Dependencies: UI Primitives
-- [ ] Pricing Page - Plan tiers - Props: plans - Dependencies: Card, Button
-- [ ] Blog Index + Post - Content layout - Props: post list/content - Dependencies: Card
-- [ ] Contact Page - Contact form - Props: none - State: form fields - Dependencies: Input, Button
-- [ ] Legal Pages - Static content - Props: none - Dependencies: App Shell
-- [ ] Not Found Page - 404 content - Props: none - Dependencies: Button
+## Status: ✅ Plan Approved
+
+## Implementation Steps
+
+### 1. Dependencies & Setup [ ]
+- [ ] `npm i framer-motion embla-carousel-react`
+- [ ] Update package.json scripts if needed
+- [ ] `npm install`
+
+### 2. Tailwind & Global Styles [ ]
+- [ ] Enhance tailwind.config.ts (add more animations, keyframes)
+- [ ] globals.css: Add CSS vars for dark mode, smooth-scroll
+- [ ] Add font imports (Inter/Plus Jakarta)
+
+### 3. UI Primitives (src/components/ui/) [✅ sidebar.tsx, stats-card.tsx, carousel.tsx, testimonial-card.tsx]
+- [ ] `sidebar.tsx` - Radix collapsible sticky nav
+- [ ] `carousel.tsx` - Embla carousel for jobs/testimonials
+- [ ] `stepper.tsx` - Multi-step form nav
+- [ ] `testimonial-card.tsx` + carousel
+- [ ] `stats-card.tsx` - Animated counters
+- [ ] Enhance existing: button/card/modal/tabs with cva variants
+
+### 4. Layout Components [ ]
+- [ ] `dashboard-shell.tsx` - Sidebar + main content
+- [ ] header-client.tsx: Search, notifications, profile, dark toggle
+
+### 5. Landing Page (src/app/page.tsx + home/) [✅ testimonials-section.tsx, newsletter-section.tsx integrated]
+- [ ] Hero: Animated gradient, stats counter, CTA buttons
+- [ ] FeaturedJobsCarousel
+- [ ] Testimonials section + slider
+- [ ] Newsletter signup form
+- [ ] Update categories/companies sections
+
+### 6. Authentication Pages [ ]
+- [ ] signin/register: Background illustrations, Google OAuth
+- [ ] Password reset page
+
+### 7. Dashboards [ ]
+- [ ] employer/page.tsx: Stats grid, recent jobs table
+- [ ] profile/seeker: Completion progress, animated cards
+- [ ] Admin dashboard polish
+
+### 8. Job Pages [ ]
+- [ ] jobs/[slug]/page.tsx: Related jobs carousel, apply modal animations
+- [ ] Update job cards with glassmorphism hovers
+
+### 9. Post Job Flow [ ]
+- [ ] employer/jobs/new/: Stepper form (details → requirements → preview)
+- [ ] UploadThing drag-drop for company logo/images
+- [ ] Live preview panel
+
+### 10. Global Polish [ ]
+- [ ] Loading skeletons everywhere
+- [ ] Dark mode toggle (full implementation)
+- [ ] Responsive testing (mobile/tablet/desktop)
+- [ ] Performance: Image optimization, lazy loading
+- [ ] `npm run build && npm run lint`
+
+### 11. Testing & Demo [ ]
+- [ ] Run `npm run dev`
+- [ ] Test all flows: auth → dashboard → post job → apply
+- [ ] attempt_completion with demo command
+
+**Current Step: 1. Dependencies**
+
+**Next Actions:** Install deps, then globals.css/tailwind.

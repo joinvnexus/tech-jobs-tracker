@@ -58,7 +58,7 @@ export function CareerTipsSection({
               className="border-border/60 bg-card/90 transition hover:-translate-y-0.5 hover:border-brand-200 hover:shadow-md"
             >
               <CardHeader className="space-y-2">
-                <Badge variant="outline" className="w-fit text-[11px] uppercase">
+                <Badge variant="outline" className="w-fit text-[11px] uppercase text-foreground/80">
                   Career tips
                 </Badge>
                 <CardTitle className="text-base font-semibold text-foreground">

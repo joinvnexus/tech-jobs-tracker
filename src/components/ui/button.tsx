@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "default" | "secondary" | "outline" | "ghost" | "destructive" | "link" | "seeker" | "employer" | "admin";
+  variant?: "default" | "secondary" | "outline" | "ghost" | "destructive" | "link" | "seeker" | "employer" | "admin" | "gradient" | "soft" | "glow";
   size?: "default" | "sm" | "lg" | "icon";
   asChild?: boolean;
 }
@@ -16,10 +16,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <Comp
         className={cn(
           // Base styles
-          "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-all duration-200",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+          "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-lg text-sm font-medium transition-all duration-200 ease-out",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
           "disabled:pointer-events-none disabled:opacity-50",
-          "active:scale-[0.98]",
+          "active:scale-[0.98] hover:active:scale-[0.96]",
           
           // Sizes
           {
@@ -31,41 +31,53 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           
           // Variants
           {
-            // Default - Brand Blue
-            "bg-brand-500 text-white hover:bg-brand-600 hover:shadow-md focus-visible:ring-ring":
+            // Default - Primary Blue
+            "bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-md hover:-translate-y-0.5 focus-visible:ring-ring":
               variant === "default",
             
-            // Secondary - Gray
-            "bg-secondary text-secondary-foreground hover:bg-secondary/80":
+            // Secondary - Slate
+            "bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:-translate-y-0.5":
               variant === "secondary",
             
             // Outline
-            "border-2 border-brand-500 text-brand-600 bg-transparent hover:bg-brand-50":
+            "border border-border text-foreground bg-transparent hover:bg-primary/5 hover:border-primary/30 hover:-translate-y-0.5":
               variant === "outline",
             
             // Ghost
-            "hover:bg-secondary hover:text-foreground": 
+            "hover:bg-secondary/80 hover:text-foreground hover:-translate-y-0.5": 
               variant === "ghost",
             
             // Destructive - Red
-            "bg-destructive text-destructive-foreground hover:bg-destructive/90 focus-visible:ring-destructive":
+            "bg-destructive text-destructive-foreground hover:bg-destructive/90 hover:shadow-md hover:-translate-y-0.5 focus-visible:ring-destructive":
               variant === "destructive",
             
             // Link
-            "text-brand-600 underline-offset-4 hover:underline":
+            "text-primary underline-offset-4 hover:underline hover:-translate-y-0.5":
               variant === "link",
             
             // Seeker - Teal
-            "bg-seeker-500 text-white hover:bg-seeker-600 hover:shadow-lg hover:shadow-seeker-500/25 focus-visible:ring-seeker-500":
+            "bg-seeker-500 text-white hover:bg-seeker-600 hover:shadow-lg hover:shadow-seeker-500/25 hover:-translate-y-0.5 focus-visible:ring-seeker-500":
               variant === "seeker",
             
-            // Employer - Purple  
-            "bg-employer-500 text-white hover:bg-employer-600 hover:shadow-lg hover:shadow-employer-500/25 focus-visible:ring-employer-500":
+            // Employer - Indigo  
+            "bg-employer-500 text-white hover:bg-employer-600 hover:shadow-lg hover:shadow-employer-500/25 hover:-translate-y-0.5 focus-visible:ring-employer-500":
               variant === "employer",
             
             // Admin - Orange
-            "bg-admin-500 text-white hover:bg-admin-600 hover:shadow-lg hover:shadow-admin-500/25 focus-visible:ring-admin-500":
+            "bg-admin-500 text-white hover:bg-admin-600 hover:shadow-lg hover:shadow-admin-500/25 hover:-translate-y-0.5 focus-visible:ring-admin-500":
               variant === "admin",
+
+            // Gradient - New
+            "bg-gradient-to-r from-primary to-primary-light text-white hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5 focus-visible:ring-primary":
+              variant === "gradient",
+            
+            // Soft - New
+            "bg-primary/10 text-primary hover:bg-primary/20 hover:-translate-y-0.5 focus-visible:ring-primary":
+              variant === "soft",
+            
+            // Glow - New
+            "bg-primary text-white shadow-lg hover:shadow-primary/40 hover:shadow-xl hover:-translate-y-0.5 focus-visible:ring-primary":
+              variant === "glow",
           },
           className
         )}

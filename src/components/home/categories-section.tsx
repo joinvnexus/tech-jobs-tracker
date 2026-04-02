@@ -39,7 +39,7 @@ export function CategoriesSection({
             <Link
               key={category}
               href={{ pathname: "/jobs", query: { category } }}
-              className="group rounded-xl border border-border/60 bg-card px-4 py-3 text-sm font-medium text-foreground shadow-sm transition hover:-translate-y-0.5 hover:border-brand-200 hover:bg-brand-50"
+              className="group rounded-xl border border-border/60 bg-card/90 px-4 py-3 text-sm font-medium text-foreground shadow-sm transition hover:-translate-y-0.5 hover:border-brand-200 hover:bg-accent/10"
             >
               {category}
             </Link>

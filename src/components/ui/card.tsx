@@ -4,28 +4,34 @@ import { cn } from "@/lib/utils";
 const Card = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & {
-    variant?: "default" | "bordered" | "elevated" | "glass";
+    variant?: "default" | "bordered" | "elevated" | "glass" | "interactive" | "gradient";
     accent?: "none" | "brand" | "seeker" | "employer" | "admin";
+    interactive?: boolean;
   }
->(({ className, variant = "default", accent = "none", ...props }, ref) => (
+>(({ className, variant = "default", accent = "none", interactive = false, ...props }, ref) => (
   <div
     ref={ref}
     className={cn(
       // Base styles
-      "rounded-xl transition-all duration-200",
+      "rounded-xl transition-all duration-200 ease-out",
+      
+      // Interactive variant
+      interactive && "cursor-pointer hover:border-primary/30 hover:shadow-lg hover:-translate-y-1",
       
       // Variants
       {
-        "bg-card text-card-foreground shadow-sm": variant === "default",
-        "bg-card border-2 border-border shadow-sm": variant === "bordered",
-        "bg-card shadow-lg hover:shadow-xl transition-shadow duration-300": variant === "elevated",
-        "bg-white/80 backdrop-blur-sm border border-white/20 shadow-sm": variant === "glass",
+        "bg-card text-card-foreground border border-border/60 shadow-sm": variant === "default",
+        "bg-transparent border-2 border-border shadow-sm": variant === "bordered",
+        "bg-card border border-border/40 shadow-md hover:shadow-lg transition-shadow duration-300": variant === "elevated",
+        "bg-card/80 backdrop-blur-md border border-white/20 shadow-sm": variant === "glass",
+        "cursor-pointer border border-border/40 shadow-sm hover:border-primary/30 hover:shadow-lg hover:-translate-y-1 transition-all duration-200": variant === "interactive",
+        "bg-gradient-to-br from-card to-card/50 border border-border/40 shadow-sm": variant === "gradient",
       },
       
       // Accent borders
       {
         "border-l-4": accent !== "none",
-        "border-l-brand-500": accent === "brand",
+        "border-l-primary": accent === "brand",
         "border-l-seeker-500": accent === "seeker",
         "border-l-employer-500": accent === "employer",
         "border-l-admin-500": accent === "admin",

@@ -11,10 +11,10 @@ interface ToastProps {
 }
 
 const variantClasses = {
-  default: "bg-foreground text-background",
-  success: "bg-success text-background",
-  error: "bg-danger text-background",
-  warning: "bg-warning text-background",
+  default: "bg-card text-foreground border border-border/70",
+  success: "bg-success/15 text-success border border-success/30",
+  error: "bg-danger/15 text-danger border border-danger/30",
+  warning: "bg-warning/15 text-warning border border-warning/30",
 };
 
 export function Toast({
@@ -49,7 +49,7 @@ export function Toast({
       {onClose && (
         <button
           onClick={onClose}
-          className="text-white/80 hover:text-white"
+          className="text-foreground/70 hover:text-foreground"
           aria-label="Close"
         >
           <svg

@@ -40,7 +40,11 @@ export function Modal({ open, onClose, title, children }: ModalProps) {
       aria-label={title}
       onClick={handleBackdropClick}
     >
-      <div className={cn("w-full max-w-lg rounded-lg bg-background p-6 shadow-lg")}>
+      <div
+        className={cn(
+          "w-full max-w-lg rounded-lg border border-border/70 bg-card p-6 shadow-lg"
+        )}
+      >
         {title ? (
           <h2 className="mb-4 text-lg font-semibold">{title}</h2>
         ) : null}

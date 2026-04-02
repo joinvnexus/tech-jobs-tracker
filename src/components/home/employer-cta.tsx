@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 
 export function EmployerCTA() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-r from-brand-700 via-brand-600 to-accent py-14 text-white">
+    <section className="relative overflow-hidden bg-gradient-to-r from-brand-700 via-brand-600 to-admin-500 py-14 text-white">
       <div className="absolute inset-0 opacity-25">
         <div className="absolute -right-16 top-0 h-52 w-52 rounded-full bg-white/20 blur-3xl" />
         <div className="absolute bottom-0 left-10 h-52 w-52 rounded-full bg-white/10 blur-3xl" />

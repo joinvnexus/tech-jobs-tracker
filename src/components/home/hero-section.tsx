@@ -52,20 +52,20 @@ export function HeroSection({
   ],
 }: HeroSectionProps) {
   return (
-    <section className="relative overflow-hidden border-b bg-gradient-to-br from-brand-50/60 via-background to-accent/10">
+    <section className="relative overflow-hidden border-b bg-gradient-to-br from-primary/10 via-background to-accent/20">
       <div className="absolute inset-0">
-        <div className="absolute -left-20 -top-24 h-72 w-72 rounded-full bg-brand-200/50 blur-3xl" />
-        <div className="absolute right-0 top-10 h-72 w-72 rounded-full bg-accent/20 blur-3xl" />
+        <div className="absolute -left-24 -top-28 h-72 w-72 rounded-full bg-primary/20 blur-3xl" />
+        <div className="absolute right-0 top-10 h-72 w-72 rounded-full bg-accent/30 blur-3xl" />
         <div className="absolute bottom-0 left-1/3 h-56 w-56 rounded-full bg-success/20 blur-3xl" />
       </div>
 
       <div className="container-app relative py-12 md:py-16 lg:py-20">
         <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div className="space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full bg-card/70 px-4 py-1 text-sm font-medium text-foreground/80 shadow-sm ring-1 ring-border/60">
+            <div className="inline-flex items-center gap-2 rounded-full bg-card/80 px-4 py-1 text-sm font-medium text-foreground shadow-sm ring-1 ring-border/60">
               <span className="relative flex h-2.5 w-2.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-400 opacity-70" />
-                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-brand-500" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-70" />
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-primary" />
               </span>
               New roles added daily
               <Sparkles className="h-4 w-4 text-warning" />
@@ -73,13 +73,13 @@ export function HeroSection({
 
             <h1 className="font-heading text-4xl font-semibold leading-tight text-foreground md:text-5xl lg:text-6xl">
               Find work that respects your craft, with
-              <span className="ml-2 inline-flex items-center bg-gradient-to-r from-brand-600 to-accent bg-clip-text text-transparent">
+              <span className="ml-2 inline-flex items-center bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 HireHub
               </span>
               .
             </h1>
 
-            <p className="max-w-xl text-sm leading-relaxed text-muted md:text-base lg:text-lg">
+            <p className="max-w-xl text-sm leading-relaxed text-foreground/80 md:text-base lg:text-lg">
               Discover roles at growth companies across Bangladesh and remote-first teams. One profile,
               personal job alerts, and fast applications.
             </p>
@@ -94,7 +94,7 @@ export function HeroSection({
                 <Input
                   name="q"
                   placeholder="Job title, skill, or company"
-                  className="h-12 border-0 bg-secondary pl-10 text-sm focus-visible:ring-2 focus-visible:ring-brand-500"
+                  className="h-12 border-0 bg-secondary pl-10 text-sm focus-visible:ring-2 focus-visible:ring-primary"
                 />
               </div>
               <div className="hidden h-8 w-px bg-border md:block" />
@@ -102,7 +102,7 @@ export function HeroSection({
                 <Input
                   name="location"
                   placeholder="Location"
-                  className="h-12 border-0 bg-secondary text-sm focus-visible:ring-2 focus-visible:ring-brand-500"
+                  className="h-12 border-0 bg-secondary text-sm focus-visible:ring-2 focus-visible:ring-primary"
                 />
               </div>
               <Button type="submit" size="lg" className="h-12 w-full md:w-40">
@@ -116,7 +116,7 @@ export function HeroSection({
                 <Link
                   key={tag}
                   href={`/jobs?q=${encodeURIComponent(tag)}`}
-                  className="rounded-full bg-card px-3 py-1 text-xs font-medium text-muted-foreground shadow-sm ring-1 ring-border transition hover:bg-brand-50 hover:text-brand-600"
+                  className="rounded-full bg-card px-3 py-1 text-xs font-medium text-muted-foreground shadow-sm ring-1 ring-border transition hover:bg-accent/10 hover:text-foreground"
                 >
                   {tag}
                 </Link>
