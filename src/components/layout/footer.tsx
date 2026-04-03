@@ -37,7 +37,7 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="border-t border-slate-200 bg-slate-50">
+    <footer className="border-t border-border bg-muted/30">
       <div className="container mx-auto max-w-7xl px-4 py-12">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-6">
           <div className="lg:col-span-2">
@@ -47,10 +47,10 @@ export function Footer() {
               </div>
               <span className="text-xl font-bold">
                 <span className="text-brand-600">Hire</span>
-                <span className="text-slate-800">Hub</span>
+                <span className="text-foreground">Hub</span>
               </span>
             </Link>
-            <p className="text-sm text-slate-600 mb-4 max-w-xs">
+            <p className="text-sm text-muted-foreground mb-4 max-w-xs">
               The leading job marketplace connecting talented professionals with their dream careers and helping companies find the perfect talent.
             </p>
             <div className="flex gap-3">
@@ -60,7 +60,7 @@ export function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex h-9 w-9 items-center justify-center rounded-lg bg-white border border-slate-200 text-slate-600 transition-all hover:border-brand-300 hover:bg-brand-50 hover:text-brand-600"
+                  className="flex h-9 w-9 items-center justify-center rounded-lg bg-background border border-border text-muted-foreground transition-all hover:border-primary/30 hover:bg-primary/5 hover:text-primary"
                   aria-label={social.label}
                 >
                   <social.icon className="h-4 w-4" />
@@ -70,7 +70,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-900">
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">
               For Job Seekers
             </h3>
             <ul className="space-y-2.5">
@@ -78,7 +78,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-slate-600 transition-colors hover:text-brand-600"
+                    className="text-sm text-muted-foreground transition-colors hover:text-primary"
                   >
                     {link.label}
                   </Link>
@@ -88,7 +88,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-900">
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">
               For Employers
             </h3>
             <ul className="space-y-2.5">
@@ -96,7 +96,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-slate-600 transition-colors hover:text-brand-600"
+                    className="text-sm text-muted-foreground transition-colors hover:text-primary"
                   >
                     {link.label}
                   </Link>
@@ -106,7 +106,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-900">
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">
               Company
             </h3>
             <ul className="space-y-2.5">
@@ -114,7 +114,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-slate-600 transition-colors hover:text-brand-600"
+                    className="text-sm text-muted-foreground transition-colors hover:text-primary"
                   >
                     {link.label}
                   </Link>
@@ -124,7 +124,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-slate-900">
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-foreground">
               Legal
             </h3>
             <ul className="space-y-2.5">
@@ -132,7 +132,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-slate-600 transition-colors hover:text-brand-600"
+                    className="text-sm text-muted-foreground transition-colors hover:text-primary"
                   >
                     {link.label}
                   </Link>
@@ -143,13 +143,13 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-slate-200 bg-white">
+      <div className="border-t border-border bg-background">
         <div className="container mx-auto max-w-7xl px-4 py-4">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
-            <p className="text-sm text-slate-500">
+            <p className="text-sm text-muted-foreground">
               (c) {new Date().getFullYear()} HireHub. All rights reserved.
             </p>
-            <p className="text-sm text-slate-500">Made with love in Bangladesh</p>
+            <p className="text-sm text-muted-foreground">Made with love in Bangladesh</p>
           </div>
         </div>
       </div>

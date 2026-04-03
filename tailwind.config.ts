@@ -1,7 +1,6 @@
 ﻿import type { Config } from "tailwindcss"
-
 const config: Config = {
-  darkMode: ["class", ".dark"],
+darkMode: "class",
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
@@ -50,6 +49,7 @@ const config: Config = {
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
+          hover: "hsl(var(--accent-hover))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -59,7 +59,7 @@ const config: Config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        // Brand colors
+        // Brand colors (static t-shirt scale for gradients/bg colors)
         brand: {
           50: "#eff6ff",
           100: "#dbeafe",
@@ -84,6 +84,10 @@ const config: Config = {
           700: "#0f766e",
           800: "#115e59",
           900: "#134e4a",
+          DEFAULT: "hsl(var(--seeker))",
+          light: "hsl(var(--seeker-light))",
+          dark: "hsl(var(--seeker-dark))",
+          foreground: "hsl(var(--seeker-foreground))",
         },
         // Role colors - Employer (Indigo)
         employer: {
@@ -97,6 +101,10 @@ const config: Config = {
           700: "#4338ca",
           800: "#3730a3",
           900: "#312e81",
+          DEFAULT: "hsl(var(--employer))",
+          light: "hsl(var(--employer-light))",
+          dark: "hsl(var(--employer-dark))",
+          foreground: "hsl(var(--employer-foreground))",
         },
         // Role colors - Admin (Orange)
         admin: {
@@ -110,8 +118,12 @@ const config: Config = {
           700: "#c2410c",
           800: "#9a3412",
           900: "#7c2d12",
+          DEFAULT: "hsl(var(--admin))",
+          light: "hsl(var(--admin-light))",
+          dark: "hsl(var(--admin-dark))",
+          foreground: "hsl(var(--admin-foreground))",
         },
-        // Semantic colors
+        // Semantic colors (HSL from CSS variables)
         success: "hsl(var(--success))",
         warning: "hsl(var(--warning))",
         danger: "hsl(var(--danger))",

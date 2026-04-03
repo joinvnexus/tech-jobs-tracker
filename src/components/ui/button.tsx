@@ -31,12 +31,12 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           
           // Variants
           {
-            // Default - Primary Blue
+            // Default - Primary Blue (using HSL var)
             "bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-md hover:-translate-y-0.5 focus-visible:ring-ring":
               variant === "default",
             
             // Secondary - Slate
-            "bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:-translate-y-0.5":
+            "bg-secondary/80 text-secondary-foreground hover:bg-secondary hover:-translate-y-0.5":
               variant === "secondary",
             
             // Outline
@@ -44,7 +44,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               variant === "outline",
             
             // Ghost
-            "hover:bg-secondary/80 hover:text-foreground hover:-translate-y-0.5": 
+            "hover:bg-secondary/50 hover:text-foreground hover:-translate-y-0.5": 
               variant === "ghost",
             
             // Destructive - Red
@@ -55,16 +55,16 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             "text-primary underline-offset-4 hover:underline hover:-translate-y-0.5":
               variant === "link",
             
-            // Seeker - Teal
-            "bg-seeker-500 text-white hover:bg-seeker-600 hover:shadow-lg hover:shadow-seeker-500/25 hover:-translate-y-0.5 focus-visible:ring-seeker-500":
+            // Seeker - Teal (using HSL var)
+            "bg-seeker text-white hover:bg-seeker-600 hover:shadow-lg hover:shadow-seeker-500/25 hover:-translate-y-0.5 focus-visible:ring-seeker":
               variant === "seeker",
             
-            // Employer - Indigo  
-            "bg-employer-500 text-white hover:bg-employer-600 hover:shadow-lg hover:shadow-employer-500/25 hover:-translate-y-0.5 focus-visible:ring-employer-500":
+            // Employer - Indigo (using HSL var)
+            "bg-employer text-white hover:bg-employer-600 hover:shadow-lg hover:shadow-employer-500/25 hover:-translate-y-0.5 focus-visible:ring-employer":
               variant === "employer",
             
-            // Admin - Orange
-            "bg-admin-500 text-white hover:bg-admin-600 hover:shadow-lg hover:shadow-admin-500/25 hover:-translate-y-0.5 focus-visible:ring-admin-500":
+            // Admin - Orange (using HSL var)
+            "bg-admin text-white hover:bg-admin-600 hover:shadow-lg hover:shadow-admin-500/25 hover:-translate-y-0.5 focus-visible:ring-admin":
               variant === "admin",
 
             // Gradient - New

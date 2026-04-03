@@ -28,13 +28,13 @@ const Card = React.forwardRef<
         "bg-gradient-to-br from-card to-card/50 border border-border/40 shadow-sm": variant === "gradient",
       },
       
-      // Accent borders
+      // Accent borders (using HSL vars for consistency)
       {
         "border-l-4": accent !== "none",
         "border-l-primary": accent === "brand",
-        "border-l-seeker-500": accent === "seeker",
-        "border-l-employer-500": accent === "employer",
-        "border-l-admin-500": accent === "admin",
+        "border-l-seeker": accent === "seeker",
+        "border-l-employer": accent === "employer",
+        "border-l-admin": accent === "admin",
       },
       
       className

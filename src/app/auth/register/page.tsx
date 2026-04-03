@@ -19,11 +19,11 @@ export default function Register() {
   const [state, formAction] = useActionState(registerAction, {})
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
-      <Card className="w-full max-w-md">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-primary/5 via-background to-accent/5">
+      <Card className="w-full max-w-md border-border/60 shadow-lg">
         <CardHeader>
-          <CardTitle>Create HireHub Account</CardTitle>
-          <CardDescription>
+          <CardTitle className="text-foreground">Create HireHub Account</CardTitle>
+          <CardDescription className="text-muted-foreground">
             Join thousands finding their dream jobs.
           </CardDescription>
         </CardHeader>

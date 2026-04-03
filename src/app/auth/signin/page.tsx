@@ -56,11 +56,11 @@ export default function SignIn() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
-      <Card className="w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/5 via-background to-accent/5">
+      <Card className="w-full max-w-md border-border/60 shadow-lg">
         <CardHeader>
-          <CardTitle>Sign In to HireHub</CardTitle>
-          <CardDescription>Welcome back! Please enter your credentials.</CardDescription>
+          <CardTitle className="text-foreground">Sign In to HireHub</CardTitle>
+          <CardDescription className="text-muted-foreground">Welcome back! Please enter your credentials.</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">

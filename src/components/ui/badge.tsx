@@ -21,7 +21,7 @@ export interface BadgeProps
 }
 
 function Badge({ className, variant = "default", dot = false, ...props }: BadgeProps) {
-  // Determine dot color based on variant
+  // Dot color mapping - using semantic colors from CSS vars
   const dotColor = 
     variant === "success" ? "bg-success" :
     variant === "warning" ? "bg-warning" :
@@ -29,55 +29,48 @@ function Badge({ className, variant = "default", dot = false, ...props }: BadgeP
     variant === "info" ? "bg-info" :
     "bg-primary";
 
+  // Determine styling based on variant - using HSL vars for better dark mode support
+  const getVariantStyles = () => {
+    switch (variant) {
+      case "default":
+        return "bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-300";
+      case "secondary":
+        return "bg-secondary/80 text-secondary-foreground";
+      case "outline":
+        return "border border-border/70 text-foreground/80";
+      case "success":
+        return "bg-success/15 text-success dark:bg-success/20";
+      case "warning":
+        return "bg-warning/15 text-warning dark:bg-warning/20";
+      case "error":
+      case "destructive":
+        return "bg-danger/15 text-danger dark:bg-danger/20";
+      case "info":
+        return "bg-info/15 text-info dark:bg-info/20";
+      case "seeker":
+        return "bg-seeker/15 text-seeker dark:bg-seeker/20 dark:text-seeker-300";
+      case "employer":
+        return "bg-employer/15 text-employer dark:bg-employer/20 dark:text-employer-300";
+      case "admin":
+        return "bg-admin/15 text-admin dark:bg-admin/20 dark:text-admin-300";
+      case "soft":
+        return "bg-primary/5 text-primary/80 hover:bg-primary/10";
+      case "dot":
+      default:
+        return "bg-primary/10 text-primary";
+    }
+  };
+
   return (
     <div
       className={cn(
         // Base styles
         "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium transition-all duration-200",
         
-        // Variants
-        {
-          // Default - Primary Blue
-          "bg-primary/10 text-primary": variant === "default",
-          
-          // Secondary - Gray
-          "bg-secondary/80 text-secondary-foreground": variant === "secondary",
-          
-          // Outline
-          "border border-border/70 text-foreground/80": variant === "outline",
-          
-          // Success - Green
-          "bg-success/15 text-success": variant === "success",
-          
-          // Warning - Amber
-          "bg-warning/15 text-warning": variant === "warning",
-          
-          // Error/Danger - Red
-          "bg-danger/15 text-danger": variant === "destructive" || variant === "error",
-          
-          // Info - Blue
-          "bg-info/15 text-info": variant === "info",
-          
-          // Seeker - Teal
-          "bg-seeker-100 text-seeker-700 dark:text-seeker-300": variant === "seeker",
-          
-          // Employer - Indigo
-          "bg-employer-100 text-employer-700 dark:text-employer-300": variant === "employer",
-          
-          // Admin - Orange
-          "bg-admin-100 text-admin-700 dark:text-admin-300": variant === "admin",
-
-          // Soft - New (lighter background)
-          "bg-primary/5 text-primary/80 hover:bg-primary/10": variant === "soft",
-        },
-        // Adjust for dot variant styling
-        (variant === "dot" || dot) && (
-          variant === "success" ? "bg-success/15 text-success" :
-          variant === "warning" ? "bg-warning/15 text-warning" :
-          variant === "destructive" || variant === "error" ? "bg-danger/15 text-danger" :
-          variant === "info" ? "bg-info/15 text-info" :
-          "bg-primary/10 text-primary"
-        ),
+        // Variant styling
+        getVariantStyles(),
+        
+        // Dot variant spacing
         (variant === "dot" || dot) && "gap-1.5 pl-2",
         className
       )}

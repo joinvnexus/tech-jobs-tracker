@@ -1,7 +1,34 @@
-﻿@import "tailwindcss";
+/* ============================================
+   HIREHUB GLOBAL COLOR SYSTEM
+   ============================================
+   
+   This file defines the complete design system for HireHub.
+   All colors use CSS custom properties (HSL format) for consistency
+   and easy theming.
+   
+   COLOR TOKENS:
+   -------------
+   Primary (Ocean Blue): Brand/Company identity
+   Secondary: Supporting elements, backgrounds
+   Accent: CTAs, highlights, emphasis
+   Role Colors: Seeker (teal), Employer (indigo), Admin (orange)
+   Semantic: Success, warning, danger, info
+   Surface: Elevated and subtle backgrounds
+   
+   USAGE:
+   -------
+   - Use hsl(var(--primary)) for primary brand color
+   - Use role colors (--seeker, --employer, --admin) for user-type specific elements
+   - Use semantic colors (--success, --warning, --danger) for status feedback
+   - Use t-shirt scale: 50, 100, 200, 300, 400, 500, 600, 700, 800, 900
+   
+   DARK MODE:
+   ----------
+   All colors have dark mode variants defined in .dark {}
+   Brighter values are used in dark mode for better contrast.
+   ============================================ */
 
-/* Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
 
 :root {
   /* Typography */
@@ -48,13 +75,23 @@
   --brand: 215 70% 40%;
   --brand-strong: 215 80% 25%;
 
-  /* Role Colors */
+  /* Role Colors - Seeker (Teal) */
   --seeker: 170 65% 40%;
   --seeker-light: 170 55% 55%;
+  --seeker-dark: 170 75% 30%;
+  --seeker-foreground: 0 0% 100%;
+
+  /* Role Colors - Employer (Indigo) */
   --employer: 239 84% 67%;
   --employer-light: 239 70% 80%;
+  --employer-dark: 239 84% 55%;
+  --employer-foreground: 0 0% 100%;
+
+  /* Role Colors - Admin (Orange) */
   --admin: 24 95% 53%;
   --admin-light: 24 90% 65%;
+  --admin-dark: 24 95% 45%;
+  --admin-foreground: 0 0% 100%;
 
   /* Status Colors */
   --success: 160 70% 40%;
@@ -131,10 +168,18 @@
   /* Role Colors (Lighter for dark mode) */
   --seeker: 170 65% 50%;
   --seeker-light: 170 55% 60%;
+  --seeker-dark: 170 65% 40%;
+  --seeker-foreground: 0 0% 100%;
+
   --employer: 239 84% 75%;
   --employer-light: 239 70% 85%;
+  --employer-dark: 239 84% 60%;
+  --employer-foreground: 0 0% 100%;
+
   --admin: 24 95% 60%;
   --admin-light: 24 90% 70%;
+  --admin-dark: 24 95% 50%;
+  --admin-foreground: 0 0% 100%;
 
   /* Status Colors */
   --success: 160 70% 50%;

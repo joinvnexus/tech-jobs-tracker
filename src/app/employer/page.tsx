@@ -56,22 +56,22 @@ export default async function EmployerDashboardPage() {
   const totalApplications = recentJobs.reduce((acc, job) => acc + job._count.applications, 0)
 
   return (
-    <div className="min-h-screen bg-slate-50/50">
+    <div className="min-h-screen bg-muted/30">
       {/* Header */}
-      <div className="bg-gradient-to-r from-purple-600 via-purple-700 to-purple-800 pb-16 pt-8">
+      <div className="bg-gradient-to-r from-employer-600 via-employer-700 to-employer-800 pb-16 pt-8">
         <div className="container max-w-7xl px-4">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
               <h1 className="text-2xl font-bold text-white md:text-3xl">
                 Welcome back{company ? `, ${company.name}` : ""}! 👋
               </h1>
-              <p className="mt-1 text-purple-100">
+              <p className="mt-1 text-employer-100">
                 Manage your job postings and candidates in one place.
               </p>
             </div>
             <div className="flex gap-3">
               {company && (
-                <Button asChild variant="employer" className="shadow-lg shadow-purple-500/25">
+                <Button asChild variant="employer" className="shadow-lg shadow-employer-500/25">
                   <Link href="/employer/jobs/new">
                     <Plus className="mr-2 h-4 w-4" />
                     Post a Job
@@ -86,50 +86,50 @@ export default async function EmployerDashboardPage() {
       <div className="container max-w-7xl px-4 -mt-8">
         {/* Stats Grid */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <Card className="border-0 shadow-lg shadow-slate-200/60">
+          <Card className="border-0 shadow-lg">
             <CardContent className="flex items-center gap-4 p-6">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-100 text-purple-600">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-employer-100 text-employer-600">
                 <Briefcase className="h-6 w-6" />
               </div>
               <div>
-                <p className="text-sm font-medium text-slate-500">Total Jobs</p>
-                <p className="text-2xl font-bold text-slate-900">{totalJobs}</p>
+                <p className="text-sm font-medium text-muted-foreground">Total Jobs</p>
+                <p className="text-2xl font-bold text-foreground">{totalJobs}</p>
               </div>
             </CardContent>
           </Card>
           
-          <Card className="border-0 shadow-lg shadow-slate-200/60">
+          <Card className="border-0 shadow-lg">
             <CardContent className="flex items-center gap-4 p-6">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-green-100 text-green-600">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-success/10 text-success">
                 <TrendingUp className="h-6 w-6" />
               </div>
               <div>
-                <p className="text-sm font-medium text-slate-500">Active Jobs</p>
-                <p className="text-2xl font-bold text-slate-900">{activeJobs}</p>
+                <p className="text-sm font-medium text-muted-foreground">Active Jobs</p>
+                <p className="text-2xl font-bold text-foreground">{activeJobs}</p>
               </div>
             </CardContent>
           </Card>
           
-          <Card className="border-0 shadow-lg shadow-slate-200/60">
+          <Card className="border-0 shadow-lg">
             <CardContent className="flex items-center gap-4 p-6">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-100 text-amber-600">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-warning/10 text-warning">
                 <Clock className="h-6 w-6" />
               </div>
               <div>
-                <p className="text-sm font-medium text-slate-500">Pending Approval</p>
-                <p className="text-2xl font-bold text-slate-900">{pendingJobs}</p>
+                <p className="text-sm font-medium text-muted-foreground">Pending Approval</p>
+                <p className="text-2xl font-bold text-foreground">{pendingJobs}</p>
               </div>
             </CardContent>
           </Card>
           
-          <Card className="border-0 shadow-lg shadow-slate-200/60">
+          <Card className="border-0 shadow-lg">
             <CardContent className="flex items-center gap-4 p-6">
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 text-blue-600">
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-info/10 text-info">
                 <Users className="h-6 w-6" />
               </div>
               <div>
-                <p className="text-sm font-medium text-slate-500">Total Applications</p>
-                <p className="text-2xl font-bold text-slate-900">{totalApplications}</p>
+                <p className="text-sm font-medium text-muted-foreground">Total Applications</p>
+                <p className="text-2xl font-bold text-foreground">{totalApplications}</p>
               </div>
             </CardContent>
           </Card>
@@ -138,13 +138,13 @@ export default async function EmployerDashboardPage() {
         <div className="mt-8 grid gap-8 lg:grid-cols-3">
           {/* Recent Jobs */}
           <div className="lg:col-span-2">
-            <Card className="border-0 shadow-lg shadow-slate-200/60">
-              <CardHeader className="flex flex-row items-center justify-between border-b border-slate-100 pb-4">
+            <Card className="border-0 shadow-lg">
+              <CardHeader className="flex flex-row items-center justify-between border-b border-border pb-4">
                 <div>
-                  <CardTitle className="text-lg font-semibold text-slate-900">Recent Job Postings</CardTitle>
-                  <CardDescription className="text-slate-500">Track your latest job listings and applications</CardDescription>
+                  <CardTitle className="text-lg font-semibold text-foreground">Recent Job Postings</CardTitle>
+                  <CardDescription className="text-muted-foreground">Track your latest job listings and applications</CardDescription>
                 </div>
-                <Button asChild variant="ghost" size="sm" className="text-purple-600 hover:text-purple-700">
+                <Button asChild variant="ghost" size="sm" className="text-employer-600 hover:text-employer-700">
                   <Link href="/employer/jobs">
                     View all <ArrowRight className="ml-1 h-4 w-4" />
                   </Link>
@@ -153,31 +153,31 @@ export default async function EmployerDashboardPage() {
               <CardContent className="p-0">
                 {recentJobs.length === 0 ? (
                   <div className="flex flex-col items-center justify-center py-12 text-center">
-                    <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-slate-100">
-                      <Briefcase className="h-8 w-8 text-slate-400" />
+                    <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-muted">
+                      <Briefcase className="h-8 w-8 text-muted-foreground" />
                     </div>
-                    <h3 className="font-semibold text-slate-900">No jobs posted yet</h3>
-                    <p className="mt-1 text-sm text-slate-500">Post your first job to start receiving applications</p>
+                    <h3 className="font-semibold text-foreground">No jobs posted yet</h3>
+                    <p className="mt-1 text-sm text-muted-foreground">Post your first job to start receiving applications</p>
                     <Button asChild variant="employer" size="sm" className="mt-4">
                       <Link href="/employer/jobs/new">Post a Job</Link>
                     </Button>
                   </div>
                 ) : (
-                  <div className="divide-y divide-slate-100">
+                  <div className="divide-y divide-border">
                     {recentJobs.map((job) => (
-                      <div key={job.id} className="flex items-center justify-between p-4 transition-colors hover:bg-slate-50/50">
+                      <div key={job.id} className="flex items-center justify-between p-4 transition-colors hover:bg-muted/30">
                         <div className="flex items-center gap-4">
-                          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-purple-400 to-purple-600 text-white font-semibold text-sm">
+                          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-employer-400 to-employer-600 text-white font-semibold text-sm">
                             {company?.name?.charAt(0) || 'C'}
                           </div>
                           <div>
                             <Link 
                               href={`/employer/jobs/${job.id}/applications`}
-                              className="font-medium text-slate-900 hover:text-purple-600 transition-colors"
+                              className="font-medium text-foreground hover:text-employer-600 transition-colors"
                             >
                               {job.title}
                             </Link>
-                            <div className="mt-0.5 flex items-center gap-2 text-xs text-slate-500">
+                            <div className="mt-0.5 flex items-center gap-2 text-xs text-muted-foreground">
                               <span className="flex items-center gap-0.5">
                                 <MapPin className="h-3 w-3" />
                                 {job.location}
@@ -192,19 +192,19 @@ export default async function EmployerDashboardPage() {
                         </div>
                         <div className="flex items-center gap-3">
                           {job.status === "ACTIVE" && (
-                            <Badge className="bg-green-100 text-green-700 border-green-200 text-xs">
+                            <Badge variant="success" className="text-xs">
                               <CheckCircle className="mr-1 h-3 w-3" />
                               Active
                             </Badge>
                           )}
                           {job.status === "PENDING" && (
-                            <Badge className="bg-amber-100 text-amber-700 border-amber-200 text-xs">
+                            <Badge variant="warning" className="text-xs">
                               <AlertCircle className="mr-1 h-3 w-3" />
                               Pending
                             </Badge>
                           )}
                           {job.status === "EXPIRED" && (
-                            <Badge className="bg-slate-100 text-slate-700 border-slate-200 text-xs">
+                            <Badge variant="secondary" className="text-xs">
                               Expired
                             </Badge>
                           )}
@@ -224,14 +224,14 @@ export default async function EmployerDashboardPage() {
 
             {/* Quick Actions */}
             <div className="mt-6 grid gap-4 md:grid-cols-2">
-              <Card className="border-0 shadow-lg shadow-slate-200/60 hover:shadow-xl transition-shadow">
+              <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
                 <CardContent className="flex items-center gap-4 p-6">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-100 text-purple-600">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-employer-100 text-employer-600">
                     <Plus className="h-6 w-6" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold text-slate-900">Post New Job</h3>
-                    <p className="text-sm text-slate-500">Create a new job listing</p>
+                    <h3 className="font-semibold text-foreground">Post New Job</h3>
+                    <p className="text-sm text-muted-foreground">Create a new job listing</p>
                   </div>
                   <Button asChild variant="employer" size="sm">
                     <Link href="/employer/jobs/new">Create</Link>
@@ -239,14 +239,14 @@ export default async function EmployerDashboardPage() {
                 </CardContent>
               </Card>
               
-              <Card className="border-0 shadow-lg shadow-slate-200/60 hover:shadow-xl transition-shadow">
+              <Card className="border-0 shadow-lg hover:shadow-xl transition-shadow">
                 <CardContent className="flex items-center gap-4 p-6">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-purple-100 text-purple-600">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-employer-100 text-employer-600">
                     <Building2 className="h-6 w-6" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold text-slate-900">Edit Company</h3>
-                    <p className="text-sm text-slate-500">Update your company profile</p>
+                    <h3 className="font-semibold text-foreground">Edit Company</h3>
+                    <p className="text-sm text-muted-foreground">Update your company profile</p>
                   </div>
                   <Button asChild variant="outline" size="sm">
                     <Link href="#company">Edit</Link>
@@ -259,7 +259,7 @@ export default async function EmployerDashboardPage() {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Company Profile */}
-            <Card className="border-0 shadow-lg shadow-slate-200/60" id="company">
+            <Card className="border-0 shadow-lg" id="company">
               <CardHeader className="pb-3">
                 <CardTitle className="text-base font-semibold">Company Profile</CardTitle>
               </CardHeader>
@@ -267,7 +267,7 @@ export default async function EmployerDashboardPage() {
                 {company ? (
                   <div className="space-y-4">
                     <div className="flex items-center gap-3">
-                      <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-gradient-to-br from-purple-400 to-purple-600 text-white text-xl font-bold">
+                      <div className="flex h-14 w-14 items-center justify-center rounded-lg bg-gradient-to-br from-employer-400 to-employer-600 text-white text-xl font-bold">
                         {company.logoUrl ? (
                           <img
                             src={company.logoUrl}
@@ -279,15 +279,15 @@ export default async function EmployerDashboardPage() {
                         )}
                       </div>
                       <div>
-                        <h3 className="font-semibold text-slate-900">{company.name}</h3>
-                        <p className="text-sm text-slate-500 flex items-center gap-1">
+                        <h3 className="font-semibold text-foreground">{company.name}</h3>
+                        <p className="text-sm text-muted-foreground flex items-center gap-1">
                           <MapPin className="h-3 w-3" />
                           {company.location || "No location set"}
                         </p>
                       </div>
                     </div>
                     {company.description && (
-                      <p className="text-sm text-slate-600 line-clamp-3">
+                      <p className="text-sm text-muted-foreground line-clamp-3">
                         {company.description}
                       </p>
                     )}
@@ -295,13 +295,13 @@ export default async function EmployerDashboardPage() {
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    <div className="flex items-center gap-3 p-4 rounded-lg bg-purple-50 border border-purple-100">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-purple-100 text-purple-600">
+                    <div className="flex items-center gap-3 p-4 rounded-lg bg-employer/5 border border-employer/10">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-employer/10 text-employer-600">
                         <Building2 className="h-5 w-5" />
                       </div>
                       <div>
-                        <p className="font-medium text-slate-900">Set up your company</p>
-                        <p className="text-xs text-slate-500">Create a company profile</p>
+                        <p className="font-medium text-foreground">Set up your company</p>
+                        <p className="text-xs text-muted-foreground">Create a company profile</p>
                       </div>
                     </div>
                     <CompanyForm company={null} initialState={{}} />
@@ -311,7 +311,7 @@ export default async function EmployerDashboardPage() {
             </Card>
 
             {/* Tips Card */}
-            <Card className="border-0 shadow-lg shadow-slate-200/60 bg-gradient-to-br from-purple-600 to-purple-700 text-white">
+            <Card className="border-0 shadow-lg bg-gradient-to-br from-employer-600 to-employer-700 text-white">
               <CardContent className="p-6">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/20">
@@ -319,13 +319,13 @@ export default async function EmployerDashboardPage() {
                   </div>
                   <div>
                     <p className="font-semibold">Hiring Tip</p>
-                    <p className="text-xs text-purple-200">Boost your visibility</p>
+                    <p className="text-xs text-employer-200">Boost your visibility</p>
                   </div>
                 </div>
-                <p className="text-sm text-purple-50 mb-4">
+                <p className="text-sm text-white/80 mb-4">
                   Jobs with detailed descriptions and salary ranges get 2x more quality applications.
                 </p>
-                <Button asChild size="sm" className="w-full bg-white text-purple-600 hover:bg-purple-50">
+                <Button asChild size="sm" className="w-full bg-white text-employer-600 hover:bg-white/90">
                   <Link href="/employer/jobs/new">Learn More</Link>
                 </Button>
               </CardContent>
