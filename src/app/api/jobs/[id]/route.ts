@@ -9,7 +9,7 @@ const jobUpdateSchema = z.object({
   description: z.string().min(10).optional(),
   responsibilities: z.string().optional(),
   requirements: z.string().optional(),
-  benefits: z.array(z.string()).optional(),
+  benefits: z.string().optional(), // Stored as JSON string for SQLite
   salaryRange: z.string().optional(),
   location: z.string().min(2).optional(),
   jobType: z

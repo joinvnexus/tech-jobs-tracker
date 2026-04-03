@@ -33,9 +33,9 @@ interface ProfileFormProps {
     title: string | null
     phone: string | null
     bio: string | null
-    skills: string[]
-    experience: unknown
-    education: unknown
+    skills: string | null
+    experience: string | null
+    education: string | null
     resumeUrl: string | null
   } | null
 }
@@ -43,13 +43,22 @@ interface ProfileFormProps {
 export function ProfileForm({ user, profile }: ProfileFormProps) {
   const [state, formAction] = useActionState(updateProfileAction, initialState)
 
-  const skillsString = profile?.skills.join(", ") ?? ""
-  const experienceString = Array.isArray(profile?.experience)
-    ? (profile?.experience as string[]).join("\n")
-    : ""
-  const educationString = Array.isArray(profile?.education)
-    ? (profile?.education as string[]).join("\n")
-    : ""
+  const parseJsonArray = (str: string | null): string[] => {
+    if (!str) return []
+    try {
+      return JSON.parse(str) as string[]
+    } catch {
+      return []
+    }
+  }
+
+  const skillsArray = parseJsonArray(profile?.skills ?? null)
+  const experienceArray = parseJsonArray(profile?.experience ?? null)
+  const educationArray = parseJsonArray(profile?.education ?? null)
+
+  const skillsString = skillsArray.join(", ")
+  const experienceString = experienceArray.join("\n")
+  const educationString = educationArray.join("\n")
 
   return (
     <form action={formAction} className="space-y-6">

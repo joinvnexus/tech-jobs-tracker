@@ -1,5 +1,5 @@
 generator client {
-  provider        = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 generator uploadthing {
@@ -8,7 +8,7 @@ generator uploadthing {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
 }
 
 // NextAuth models
@@ -19,11 +19,11 @@ model Account {
   provider          String
   providerAccountId String
   refresh_token     String?
-  access_token      String? @db.Text
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -73,9 +73,9 @@ model UserProfile {
   title       String?
   phone       String?
   bio         String?
-  skills      String[]
-  experience  Json?
-  education   Json?
+  skills      String   // Stored as JSON string for SQLite
+  experience  String   // Stored as JSON string for SQLite
+  education   String   // Stored as JSON string for SQLite
   resumeUrl   String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -107,7 +107,7 @@ model Job {
   description        String
   responsibilities   String?
   requirements       String?
-  benefits           String[]         @default([])
+  benefits           String           // Stored as JSON string for SQLite
   salaryRange        String?
   location           String
   jobType            JobType

@@ -158,13 +158,13 @@ export default async function JobDetailsPage({
             </Card>
           ) : null}
 
-          {job.benefits && job.benefits.length > 0 ? (
+          {job.benefits && job.benefits !== "[]" ? (
             <Card>
               <CardHeader>
                 <CardTitle className="text-base">Benefits</CardTitle>
               </CardHeader>
               <CardContent className="flex flex-wrap gap-2">
-                {job.benefits.map((benefit) => (
+                {(JSON.parse(job.benefits) as string[]).map((benefit) => (
                   <Badge key={benefit} variant="secondary">
                     {benefit}
                   </Badge>

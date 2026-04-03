@@ -17,7 +17,7 @@ interface EditJobFormProps {
     description: string
     responsibilities?: string | null
     requirements?: string | null
-    benefits: string[]
+    benefits?: string | null
     salaryRange?: string | null
     location: string
     jobType: "FULL_TIME" | "PART_TIME" | "CONTRACT" | "INTERNSHIP" | "REMOTE"
@@ -164,7 +164,7 @@ export function EditJobForm({ job }: EditJobFormProps) {
           id="benefits"
           name="benefits"
           rows={3}
-          defaultValue={job.benefits.join(", ")}
+          defaultValue={job.benefits ? JSON.parse(job.benefits).join(", ") : ""}
         />
       </div>
 

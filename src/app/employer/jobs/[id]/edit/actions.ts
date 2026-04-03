@@ -79,7 +79,7 @@ export async function updateJobAction(
       description: parsed.description,
       responsibilities: parsed.responsibilities,
       requirements: parsed.requirements,
-      benefits: benefitsArray,
+      benefits: JSON.stringify(benefitsArray),
       salaryRange: parsed.salaryRange,
       location: parsed.location,
       jobType: parsed.jobType,

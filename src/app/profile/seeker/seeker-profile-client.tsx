@@ -14,9 +14,9 @@ interface SeekerProfileClientProps {
     title: string | null
     phone: string | null
     bio: string | null
-    skills: string[]
-    experience: unknown
-    education: unknown
+    skills: string | null
+    experience: string | null
+    education: string | null
     resumeUrl: string | null
   } | null
 }
@@ -106,8 +106,8 @@ export function SeekerProfileClient({ user, profile }: SeekerProfileClientProps)
                     {profile?.bio || "[Your bio will appear here to showcase your experience and skills...]"}
                   </p>
                   <div className="flex flex-wrap gap-2 justify-center mb-8">
-                    {profile?.skills && profile.skills.length > 0 ? (
-                      profile.skills.map((skill) => (
+                    {profile?.skills && profile.skills !== "[]" ? (
+                      (JSON.parse(profile.skills) as string[]).map((skill) => (
                         <span key={skill} className="px-3 py-1 bg-seeker-100 text-seeker-700 rounded-full text-sm">
                           {skill}
                         </span>
@@ -123,8 +123,8 @@ export function SeekerProfileClient({ user, profile }: SeekerProfileClientProps)
                   <div className="flex items-center justify-center gap-6 text-sm text-slate-500">
                     <div className="flex items-center gap-1">
                       <Briefcase className="h-4 w-4" />
-                      {Array.isArray(profile?.experience) && profile.experience.length > 0 
-                        ? `${profile.experience.length}+ years exp.` 
+                      {profile?.experience && profile.experience !== "[]" && (JSON.parse(profile.experience) as string[]).length > 0 
+                        ? `${(JSON.parse(profile.experience) as string[]).length}+ years exp.` 
                         : "Add experience"}
                     </div>
                     <div className="flex items-center gap-1">

@@ -46,7 +46,7 @@ export default async function EditJobPage({
               description: job.description,
               responsibilities: job.responsibilities,
               requirements: job.requirements,
-              benefits: job.benefits,
+              benefits: job.benefits ?? "",
               salaryRange: job.salaryRange,
               location: job.location,
               jobType: job.jobType,

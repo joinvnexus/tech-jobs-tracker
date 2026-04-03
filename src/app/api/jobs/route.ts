@@ -19,7 +19,7 @@ const jobCreateSchema = z.object({
   description: z.string().min(10),
   responsibilities: z.string().optional(),
   requirements: z.string().optional(),
-  benefits: z.array(z.string()).optional(),
+  benefits: z.string().optional(), // Stored as JSON string for SQLite
   salaryRange: z.string().optional(),
   location: z.string().min(2),
   jobType: z.enum(["FULL_TIME", "PART_TIME", "CONTRACT", "INTERNSHIP", "REMOTE"]),
@@ -39,14 +39,14 @@ export async function GET(request: Request): Promise<Response> {
 
   if (filters.q) {
     where.OR = [
-      { title: { contains: filters.q, mode: "insensitive" } },
-      { description: { contains: filters.q, mode: "insensitive" } },
-      { company: { name: { contains: filters.q, mode: "insensitive" } } },
+      { title: { contains: filters.q } },
+      { description: { contains: filters.q } },
+      { company: { name: { contains: filters.q } } },
     ]
   }
 
   if (filters.location) {
-    where.location = { contains: filters.location, mode: "insensitive" }
+    where.location = { contains: filters.location }
   }
 
   if (filters.type) {
@@ -124,7 +124,7 @@ export async function POST(request: Request): Promise<Response> {
       description: data.description,
       responsibilities: data.responsibilities,
       requirements: data.requirements,
-      benefits: data.benefits ?? [],
+      benefits: data.benefits ? JSON.stringify(data.benefits) : "[]",
       salaryRange: data.salaryRange,
       location: data.location,
       jobType: data.jobType,

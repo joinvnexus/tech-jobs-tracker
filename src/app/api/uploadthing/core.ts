@@ -22,6 +22,9 @@ export const fileRouter = {
         create: {
           userId: metadata.userId,
           resumeUrl: file.url,
+          skills: "[]",
+          experience: "[]",
+          education: "[]",
         },
         update: {
           resumeUrl: file.url,
